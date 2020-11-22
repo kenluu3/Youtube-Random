@@ -1,0 +1,38 @@
+{
+  "name": "youtube_random",
+  "version": "1.0.0",
+  "description": "A random youtube player",
+  "main": "index.js",
+  "scripts": {
+    "start": "index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenluu3/Youtube-Random.git"
+  },
+  "author": "Ken Luu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenluu3/Youtube-Random/issues"
+  },
+  "homepage": "https://github.com/kenluu3/Youtube-Random#readme",
+  "devDependencies": {
+    "eslint": "^7.14.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "googleapis": "^65.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.10.15",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
