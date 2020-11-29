@@ -10,17 +10,17 @@ const maxResults = 50;
 /* Returns a Randomly selected video from Youtube */
 router.get("/generate", async function(req,res) {
 
-    const chosenVideo = Math.random() * (maxResults - 1) + 1;
+    const chosenVideo = Math.floor(Math.random() * (maxResults - 1) + 1);
 
     /* Attaching Tags to Request */
     var query = [];
-    var chosen = ""; /* Chosen query */
+    var chosenQ = ""; /* Chosen query */
 
     /* Query Params input as CSV */
     if (req.query.q !== undefined) {
         query = req.query.q.split(",");
         const numOpts = query.length;
-        chosen = query[Math.floor(Math.random() * numOpts)];
+        chosenQ = query[Math.floor(Math.random() * numOpts)];
     }   
 
     /* Params for YT API Search */
@@ -29,13 +29,13 @@ router.get("/generate", async function(req,res) {
         auth: process.env.YT_KEY, 
         type: "video", 
         maxResults: maxResults, 
-        q: chosen
+        q: chosenQ
     };
 
     try {
         const searchResults = await youtube.search.list(searchParams);
         const video = searchResults.data.items[chosenVideo];
-        console.log("Video: " + JSON.stringify(selectedVideo));
+        
         const selectedVideo = { /* Video Selected for User */
             id: video.id.videoId, 
             title: video.snippet.title, 
@@ -45,7 +45,7 @@ router.get("/generate", async function(req,res) {
         };
         res.status(200).send({success: true, video: selectedVideo});
     } catch(err) { /* API Limit Reached (error) */
-        res.status(500).send({success: false, message: "Error has occurred." + err});
+        res.status(500).send({success: false, message: "Error has occurred. " + err});
     }
 
 });
