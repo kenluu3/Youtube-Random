@@ -1,0 +1,43 @@
+.tags-container {
+    margin-top: 2.5vh;
+
+}
+
+.tags-save-form {
+    padding-bottom: 2vh;
+    padding-top: 2vh;
+    margin-bottom: 2vh;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+.tags-header, .tags-add {
+    background-color: #00498D;
+    border-radius: 0;
+    border: 1px solid black;
+}
+
+.tags-header {
+    color: white;
+    font-size: 2vmax;
+}
+
+.tags-input {
+    border: none;
+    background-color: #090909;
+}
+
+
+
+
+/*
+@media (min-width: 576px) { ... } good for this size
+
+@media (min-width: 768px) { ... } good for this size
+
+@media (min-width: 992px) { ... }
+
+@media (min-width: 1200px) { ... }
+
+*/
+

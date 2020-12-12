@@ -1,0 +1,22 @@
+.tag, .tag-remove {
+    border: 1px solid black;
+    font-size: 0.75rem;
+
+}
+
+.tag {
+    color: white;
+    background-color: #090909;
+    border: none;
+}
+
+.tag-wrapper {
+    width: auto;
+    display: inline-flex;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+}
+
+.tag-remove {
+    background-color: #00498D;
+}

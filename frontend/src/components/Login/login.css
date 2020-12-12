@@ -1,0 +1,45 @@
+.login-container {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-header {
+    font-size: 2rem;
+    margin-bottom: 5vh;
+}
+
+.login-form {
+    width: 100%;
+    padding: 0 7.5vw 0 7.5vw;
+}
+
+.login-button-container {
+    margin-top: 7.5vh;
+}
+
+.login-input-wrapper {
+    margin-bottom: 3.5vh;
+}
+
+#login-btn {
+    width: 100%;
+}
+
+#login-signup, .login-link { 
+    font-size: 3vmin;
+    margin: 2vh 0 0 2vw;
+}
+
+/*
+@media (min-width: 576px) { ... } good for this size
+
+@media (min-width: 768px) { ... } good for this size
+
+@media (min-width: 992px) { ... }
+
+@media (min-width: 1200px) { ... }
+
+*/

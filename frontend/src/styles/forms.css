@@ -1,0 +1,29 @@
+.form-header, .form-input, .form-text-color {
+    color: white;
+}
+
+.form-input {
+    font-size: 2vmax;
+    background-color: black;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid grey;
+}
+
+.form-input:active, .form-input:focus{
+    color: white;
+    background-color: black;
+    border-color: cadetblue;
+}
+
+
+/*
+@media (min-width: 576px) { ... } good for this size
+
+@media (min-width: 768px) { ... } good for this size
+
+@media (min-width: 992px) { ... }
+
+@media (min-width: 1200px) { ... }
+
+*/
