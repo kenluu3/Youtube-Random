@@ -25,6 +25,9 @@ app.use(bodyParser.json());
 app.use("/", userRoutes);
 app.use("/vid", videoRoutes);
 
-app.listen(process.env.PORT, () => {
-    console.log("Listening on port: " + process.env.PORT);
+
+const port = process.env.PORT || 3800;
+
+app.listen(port, () => {
+    console.log("Listening on port: " + port);
 });
