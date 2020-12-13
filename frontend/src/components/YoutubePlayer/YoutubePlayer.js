@@ -12,6 +12,7 @@ class YoutubePlayer extends Component {
         console.log("VIDEO SAVED :)");
     }
 
+    // src={'https://www.youtube.com/embed/4NFrA8PqBA8?autoplay=1'}
     render() { 
         return(
             <Container>
@@ -21,7 +22,6 @@ class YoutubePlayer extends Component {
                     allowFullScreen
                     allow='autoplay'
                     sandbox='allow-scripts allow-same-origin'
-                    src={'https://www.youtube.com/embed/4NFrA8PqBA8?autoplay=1'}
                 >
                 </iframe>
 

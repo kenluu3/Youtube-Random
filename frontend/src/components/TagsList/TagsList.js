@@ -2,7 +2,8 @@ import { Component } from 'react';
 
 // bootstrap component
 import Container from 'react-bootstrap/Container';
-import Overlay from 'react-bootstrap/Overlay';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
@@ -30,8 +31,18 @@ class TagsList extends Component {
             <Container className='tags-container'>
 
                 <InputGroup className='tags-save-form'>
+
                     <InputGroup.Prepend>
-                        <InputGroup.Text className='tags-header'>TAG</InputGroup.Text>
+                        <OverlayTrigger
+                            placement='bottom'
+                            overlay={
+                                <Tooltip>
+                                    Add tags to narrow down the generator's results!
+                                </Tooltip>
+                            }
+                        >    
+                            <InputGroup.Text className='tags-header'>TAG</InputGroup.Text>
+                        </OverlayTrigger>
                     </InputGroup.Prepend>
 
                     <FormControl className='form-input tags-input'></FormControl>
@@ -39,6 +50,7 @@ class TagsList extends Component {
                     <InputGroup.Append>
                         <Button className='tags-add' onClick={this.addTag}>ADD</Button>
                     </InputGroup.Append>
+                    
                 </InputGroup>
 
                 <div>

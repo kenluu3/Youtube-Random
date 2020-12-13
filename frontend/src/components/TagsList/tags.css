@@ -12,9 +12,13 @@
 }
 
 .tags-header, .tags-add {
-    background-color: #00498D;
+    background-color: #090909;
+    border: none;
     border-radius: 0;
-    border: 1px solid black;
+}
+
+.tags-add:focus, .tags-add:hover, .tags-add:active {
+    background-color: black !important;
 }
 
 .tags-header {
@@ -27,7 +31,10 @@
     background-color: #090909;
 }
 
-
+.tooltip-inner {
+    font-size: 0.6rem;
+    border: 2px solid black;
+}
 
 
 /*
