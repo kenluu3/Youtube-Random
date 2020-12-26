@@ -1,0 +1,19 @@
+.profile-pic {
+    width: 30vmin;
+    height: 30vmin;
+    border: 2px solid whitesmoke;
+    border-radius: 50%;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.profile-name {
+    font-size: 10vmin;
+    font-weight: 700;
+}

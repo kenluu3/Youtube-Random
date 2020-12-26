@@ -1,7 +1,7 @@
 .tag, .tag-remove {
     border: 1px solid black;
-    font-size: 0.75rem;
-
+    font-size: 0.6rem;
+    border-radius: 0;
 }
 
 .tag {
@@ -13,6 +13,6 @@
 .tag-wrapper {
     width: auto;
     display: inline-flex;
-    margin-right: 1vw;
-    margin-bottom: 1vh;
+    margin-right: 3.5vw;
+    margin-bottom: 2vh;
 }

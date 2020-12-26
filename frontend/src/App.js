@@ -15,7 +15,7 @@ import Homepage from './components/Homepage/Homepage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // Axios
-import axios from 'axios';
+//import axios from 'axios';
 
 function App() {
   return (

@@ -11,11 +11,10 @@ function TagItem() {
         <InputGroup className='tag-wrapper'>
             <InputGroup.Text className='tag'>TAGN</InputGroup.Text>   
             <InputGroup.Append>
-                <Button className='tag-remove'>X</Button>
+                <Button className='tag-remove' variant='danger'>X</Button>
             </InputGroup.Append>         
         </InputGroup>
     );
 }
-
 
 export default TagItem;

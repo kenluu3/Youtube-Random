@@ -1,7 +1,14 @@
 import { Component, Fragment } from 'react';
 
 // Bootstrap
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+
+// components in profile page
+//import FavoritesList from '../FavoritesList/FavoritesList';
+
+import logo from './icon.jpg';
+
+import './profile.css';
 
 class Profile extends Component {
 
@@ -15,8 +22,12 @@ class Profile extends Component {
         return(
             <Fragment>
 
-                <Container style={{color: "white", fontSize: "2em"}}>
-                    PROFILE PAGE
+                <Container className='profile-header'>
+                    <img 
+                        src={logo}
+                        className='profile-pic' 
+                    />
+                    <header className='profile-name'>NAME FILLER</header>                   
                 </Container>
 
             </Fragment>

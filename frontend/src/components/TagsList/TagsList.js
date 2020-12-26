@@ -26,12 +26,15 @@ class TagsList extends Component {
         console.log('Tag is added :D');
     }
 
+    clearTag() {
+        console.log('Tags are cleared :D');
+    }
+
     render() {
         return(
             <Container className='tags-container'>
 
                 <InputGroup className='tags-save-form'>
-
                     <InputGroup.Prepend>
                         <OverlayTrigger
                             placement='bottom'
@@ -44,23 +47,24 @@ class TagsList extends Component {
                             <InputGroup.Text className='tags-header'>TAG</InputGroup.Text>
                         </OverlayTrigger>
                     </InputGroup.Prepend>
-
                     <FormControl className='form-input tags-input'></FormControl>
-
                     <InputGroup.Append>
-                        <Button className='tags-add' onClick={this.addTag}>ADD</Button>
+                        <Button className='tags-btn' onClick={this.addTag}>ADD</Button>
+                        <Button className='tags-btn' variant='danger' onClick={this.clearTag}>CLEAR</Button>
                     </InputGroup.Append>
-                    
                 </InputGroup>
+                
+                <Button id='tags-generate' variant='success'>GENERATE</Button>
 
-                <div>
+                <div className='tags-list'>
                     <TagItem />
                     <TagItem />
+                    <TagItem />          
                     <TagItem />
                     <TagItem />
                     <TagItem />
                 </div>
-
+                        
             </Container>
         );
     }

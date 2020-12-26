@@ -13,7 +13,7 @@
 .form-input:active, .form-input:focus{
     color: white;
     background-color: black;
-    border-color: cadetblue;
+    border-color: #87ceeb;
 }
 
 
