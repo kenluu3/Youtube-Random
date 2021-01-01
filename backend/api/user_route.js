@@ -11,12 +11,13 @@ function validEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-/*
 router.get("/", function(req,res,next) {
     res.status(200).send("Hello World");
+
+    console.log(req.query.q);
+
     next();
 });
-*/
 
 /* Login Route */
 router.post("/login", (req, res, next) => {

@@ -1,29 +1,30 @@
-import { Component } from 'react';
-
 // bootstrap components
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 // routing
 import { Link } from 'react-router-dom'; 
 
 import './login.css';
 
-class Login extends Component {
+function Login() {
 
-    render() {
+
+
         return(
             <Container className='login-container'>
                 <header className='text-center login-header form-header'>YouTube Random</header>
 
                 <Form className='login-form'>
                     <Form.Group className='login-input-wrapper'>
-                        <Form.Control className='form-input' type='text' placeholder='Email or username'></Form.Control>
+                        <Form.Control className='form-input' type='text' placeholder='Email or username' autoComplete='off'></Form.Control>
                     </Form.Group>
 
                     <Form.Group className='login-input-wrapper'>
-                        <Form.Control className='form-input' type='password' placeholder='Password'></Form.Control>
+                        <Form.Control className='form-input' type='password' placeholder='Password' autoComplete='off'></Form.Control>
                         <Link to='' className='login-link'>Forgot password?</Link>
                     </Form.Group>
 
@@ -35,14 +36,7 @@ class Login extends Component {
                 </Form>
             </Container>
         );
-    }
 
 }
-
-
-// 
-
-
-
 
 export default Login;

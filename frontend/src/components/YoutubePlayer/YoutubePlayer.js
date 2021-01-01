@@ -1,4 +1,5 @@
-import { Component } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 // bootstrap components 
 import Container from 'react-bootstrap/Container';
@@ -6,47 +7,66 @@ import Button from 'react-bootstrap/Button';
 
 import './youtubeplayer.css';
 
-class YoutubePlayer extends Component {
+import { getVideo } from '../../api-client';
 
-    saveVideo() {
-        console.log("VIDEO SAVED :)");
+function YoutubePlayer() {
+
+    const initialState = {
+        channel: '',
+        channelID: '',
+        description: '',
+        id: '',
+        title: ''
     }
 
-    // src={'https://www.youtube.com/embed/4NFrA8PqBA8?autoplay=1'}
-    render() { 
-        return(
-            <Container>
-                <iframe 
-                    id='player'
-                    title='Youtube Player'
-                    allowFullScreen
-                    allow='autoplay'
-                    sandbox='allow-scripts allow-same-origin'
-                >
-                </iframe>
+    const tags = useSelector(state => state.tags);
+    const [video, setVideo] = useState(initialState);
 
-                <div className='video-info-container'>
-                    <header className='video-title'>TITLE PLACEMENT</header>    
-                    <article>
-                        <header className='video-channel-container'>
-                            <span className='video-channel'>CHANNEL</span>
-                            <Button className='video-save' onClick={this.saveVideo}>Save</Button>
-                        </header>
-
-                        <p className='video-description'>
-                            Description;Description;Description;Description;Description;
-                            Description;Description;Description;Description;Description;
-                            Description;Description;Description;Description;Description;
-                        </p>
-
-                    </article>
-                </div>   
-
-            </Container>
-        );
+    const generateVideo = async (tags) => {
+    const baseURL = 'https://www.youtube.com/embed/'
+        try {
+            let response = await getVideo(tags);
+            const video = {...response.data.video, id: baseURL.concat(response.data.video.id + '?autoplay=1')}
+            setVideo(video);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
+    return(
+        <Container>
+            <iframe 
+                id='player'
+                title='Youtube Player'
+                allowFullScreen
+                allow='autoplay'
+                sandbox='allow-scripts allow-same-origin'
+                src={video.id}
+            />
+
+            <div className='video-info-container'>
+                <header className='video-title'>TITLE PLACEMENT</header>    
+            
+                <article>
+                    <header className='video-channel-container'>
+                        <span className='video-channel'>CHANNEL</span>
+                        <Button className='video-save'>Save</Button>
+                    </header>
+
+                    <p className='video-description'>
+                        Description;Description;Description;Description;Description;
+                        Description;Description;Description;Description;Description;
+                        Description;Description;Description;Description;Description;
+                    </p>
+                </article>
+            </div>   
+
+            <Button id='video-generate' variant='success' onClick={() => generateVideo(tags)}>GENERATE</Button>
+
+        </Container>
+    )
 }
 
+            
 
 export default YoutubePlayer;

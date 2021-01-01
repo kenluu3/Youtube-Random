@@ -26,6 +26,7 @@ class Profile extends Component {
                     <img 
                         src={logo}
                         className='profile-pic' 
+                        alt='Profile'
                     />
                     <header className='profile-name'>NAME FILLER</header>                   
                 </Container>

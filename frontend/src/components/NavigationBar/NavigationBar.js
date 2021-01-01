@@ -1,5 +1,3 @@
-import { Component } from "react";
-
 // Logo
 import logo from './icon.jpg';
 
@@ -12,14 +10,9 @@ import './navbar.css';
 //router
 import { Link, NavLink } from 'react-router-dom';
 
-class NavigationBar extends Component {
-
-    constructor() {
-        super();
-    }
-
-    render() {
-        return (
+function NavigationBar() {
+    
+    return  (
             <Navbar collapseOnSelect className='navbar' expand='xl' fixed='top'>
 
                 <Navbar.Brand>
@@ -42,21 +35,9 @@ class NavigationBar extends Component {
             
             </Navbar>           
             
-        )
-    }
+        );
 }
-/*
 
-
-<Navbar.Toggle 
-    aria-controls='collapse-content' 
-    
-/>
-
-
-
-</Navbar>
-*/
 
 
 

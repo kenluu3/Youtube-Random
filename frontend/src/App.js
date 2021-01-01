@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import './App.css';
 import './styles/forms.css';
 
-// Components
+// Main Page Components
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
@@ -13,9 +13,6 @@ import Homepage from './components/Homepage/Homepage';
 
 // Routing
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-// Axios
-//import axios from 'axios';
 
 function App() {
   return (

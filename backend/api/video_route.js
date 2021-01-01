@@ -18,7 +18,7 @@ router.get("/generate", async function(req,res) {
 
     /* Query Params input as CSV */
     if (req.query.q !== undefined) {
-        query = req.query.q.split(",");
+        query = req.query.q.split(',');
         const numOpts = query.length;
         chosenQ = query[Math.floor(Math.random() * numOpts)];
     }   

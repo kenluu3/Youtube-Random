@@ -1,6 +1,6 @@
-import { Component } from 'react';
+import { useState, React } from 'react';
 
-// bootstrap component
+// bootstrap components
 import Container from 'react-bootstrap/Container';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -11,63 +11,95 @@ import FormControl from 'react-bootstrap/FormControl'
 // component in tagslist
 import TagItem from '../TagItem/TagItem';
 
+// actions
+import { addTag, clearTags } from '../../actions/tagsActions';
+import { useSelector, useDispatch } from 'react-redux';
+
 // local stylesheet
 import './tags.css';
 
-class TagsList extends Component {
+// Next Steps:  think about implementing so that i do not have to re-render the entire parent component tree and only the child
 
-    constructor() {
-        super();
+function TagsList() {
 
-        this.state = {};
+    // retrieve the tags stored in application state.
+    const tags = useSelector(state => state.tags);  // this forces re-render if theres a new result.
+
+    // local state for inputbox for tags
+    const [inputTag, setTag] = useState('');
+    const [tagId, setTagId] = useState(tags.length); 
+
+    const dispatch = useDispatch();
+
+    // Renders the individual tag items.
+    const renderTagItems = tags.map(tag => {
+        return <TagItem key={tag.id} item={tag} />
+    })
+
+    // Functions for handling user interaction
+    const handleTagInput = (e) => {
+        setTag(e.target.value);
+    }
+    
+    const handleTagEnter = (e) => { 
+        if (e.which === 13) { // enter (13)
+            handleAdd();
+        }
     }
 
-    addTag() {
-        console.log('Tag is added :D');
+    const handleAdd = () => { // clears & increments for id.
+        if (inputTag.trim() !== '') {
+            dispatch(addTag({id: tagId, tag: inputTag}));
+            setTagId(tagId + 1); 
+            setTag('');
+        }
     }
 
-    clearTag() {
-        console.log('Tags are cleared :D');
-    }
+    const handleClear = () => { // only clearable if tags list exists.
+        if (tags !== undefined && tags.length !== 0) {
+            dispatch(clearTags())
+        }
+    } 
 
-    render() {
-        return(
-            <Container className='tags-container'>
+    return(
+        <Container className='tags-container'>
+            <InputGroup className='tags-save-form'>
 
-                <InputGroup className='tags-save-form'>
-                    <InputGroup.Prepend>
-                        <OverlayTrigger
-                            placement='bottom'
-                            overlay={
-                                <Tooltip>
-                                    Add tags to narrow down the generator's results!
-                                </Tooltip>
-                            }
-                        >    
-                            <InputGroup.Text className='tags-header'>TAG</InputGroup.Text>
-                        </OverlayTrigger>
-                    </InputGroup.Prepend>
-                    <FormControl className='form-input tags-input'></FormControl>
-                    <InputGroup.Append>
-                        <Button className='tags-btn' onClick={this.addTag}>ADD</Button>
-                        <Button className='tags-btn' variant='danger' onClick={this.clearTag}>CLEAR</Button>
-                    </InputGroup.Append>
-                </InputGroup>
-                
-                <Button id='tags-generate' variant='success'>GENERATE</Button>
+                <InputGroup.Prepend>
+                    <OverlayTrigger
+                        placement='bottom'
+                        overlay={
+                            <Tooltip>
+                                Add tags to narrow down the generator's results!
+                            </Tooltip>
+                        }
+                    >    
+                        <InputGroup.Text className='tags-header'>TAG</InputGroup.Text>
+                    </OverlayTrigger>
+                </InputGroup.Prepend>
 
-                <div className='tags-list'>
-                    <TagItem />
-                    <TagItem />
-                    <TagItem />          
-                    <TagItem />
-                    <TagItem />
-                    <TagItem />
-                </div>
-                        
-            </Container>
-        );
-    }
+                <FormControl 
+                    className='form-input tags-input' 
+                    onChange={handleTagInput} 
+                    onKeyDown={handleTagEnter} 
+                    value={inputTag} 
+                    autoComplete='off'
+                />
+  
+                <InputGroup.Append>
+                    <Button className='tags-btn' onClick={() => handleAdd()}>ADD</Button>
+                    <Button className='tags-btn' variant='danger' onClick={() => handleClear()}>CLEAR</Button>
+                </InputGroup.Append>
+            
+            </InputGroup>
+                            
+            <div className='tags-list'>
+                {renderTagItems}
+            </div>
+
+        </Container>
+    );
 }
+
 
 export default TagsList;

@@ -46,6 +46,12 @@
     margin-top: 1vh;
     text-align: left;
     font-size: 0.65rem;
+    padding-bottom: 1vh;
+    border-bottom: 1px solid #696969;
+}
+
+#video-generate {
+    width: 100%;
 }
 
 /*
