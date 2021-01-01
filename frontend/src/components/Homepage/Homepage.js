@@ -1,8 +1,8 @@
 import { Fragment, Component } from 'react';
 
 // Components in Homepage
-import YoutubePlayer from '../YoutubePlayer/YoutubePlayer';
-import TagsList from '../TagsList/TagsList';
+import YoutubePlayer from './YoutubePlayer/YoutubePlayer';
+import TagsList from './TagsList/TagsList';
 
 // bootstrap components
 

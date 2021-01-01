@@ -9,10 +9,10 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 
 // component in tagslist
-import TagItem from '../TagItem/TagItem';
+import TagItem from './TagItem/TagItem';
 
 // actions
-import { addTag, clearTags } from '../../actions/tagsActions';
+import { addTag, clearTags } from '../../../actions/tagsActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 // local stylesheet

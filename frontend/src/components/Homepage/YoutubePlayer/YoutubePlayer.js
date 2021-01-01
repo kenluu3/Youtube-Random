@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import './youtubeplayer.css';
 
-import { getVideo } from '../../api-client';
+import { getVideo } from '../../../api-client';
 
 function YoutubePlayer() {
 
@@ -23,7 +23,7 @@ function YoutubePlayer() {
     const [video, setVideo] = useState(initialState);
 
     const generateVideo = async (tags) => {
-    const baseURL = 'https://www.youtube.com/embed/'
+        const baseURL = 'https://www.youtube.com/embed/';
         try {
             let response = await getVideo(tags);
             const video = {...response.data.video, id: baseURL.concat(response.data.video.id + '?autoplay=1')}
@@ -33,6 +33,10 @@ function YoutubePlayer() {
         }
     }
 
+    const handleSave = (video) => { // saves the current video into favorites.
+        console.log(`Video saved: ${video}`)
+    }
+
     return(
         <Container>
             <iframe 
@@ -40,24 +44,20 @@ function YoutubePlayer() {
                 title='Youtube Player'
                 allowFullScreen
                 allow='autoplay'
-                sandbox='allow-scripts allow-same-origin'
+                sandbox='allow-scripts allow-same-origin allow-presentation'
                 src={video.id}
             />
 
             <div className='video-info-container'>
-                <header className='video-title'>TITLE PLACEMENT</header>    
+                <header className='video-title'>{video.title.toUpperCase()}</header>    
             
                 <article>
                     <header className='video-channel-container'>
-                        <span className='video-channel'>CHANNEL</span>
-                        <Button className='video-save'>Save</Button>
+                        <span className='video-channel'>{video.channel}</span>
+                        <Button className='video-save' onClick={() => handleSave(video)}>Save</Button>
                     </header>
 
-                    <p className='video-description'>
-                        Description;Description;Description;Description;Description;
-                        Description;Description;Description;Description;Description;
-                        Description;Description;Description;Description;Description;
-                    </p>
+                    <p className='video-description'>{video.description}</p>
                 </article>
             </div>   
 

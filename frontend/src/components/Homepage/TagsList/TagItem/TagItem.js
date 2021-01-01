@@ -2,8 +2,7 @@
 import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button';
 
-import { removeTag } from '../../actions/tagsActions';
-
+import { removeTag } from '../../../../actions/tagsActions';
 import { useDispatch } from 'react-redux';
  
 // local stylesheet
