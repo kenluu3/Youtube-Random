@@ -1,105 +1,90 @@
-import { useState, React } from 'react';
+import { useState } from 'react';
 
-// bootstrap components
 import Container from 'react-bootstrap/Container';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 
-// component in tagslist
+// child component
 import TagItem from './TagItem/TagItem';
 
-// actions
-import { addTag, clearTags } from '../../../actions/tagsActions';
+import { addTag, clearTags } from '../../../redux/actions/tagsActions';
 import { useSelector, useDispatch } from 'react-redux';
 
-// local stylesheet
 import './tags.css';
 
-// Next Steps:  think about implementing so that i do not have to re-render the entire parent component tree and only the child
+// Next Steps: Implement solution to only re-render child elements when added.
 
 function TagsList() {
 
-    // retrieve the tags stored in application state.
-    const tags = useSelector(state => state.tags);  // this forces re-render if theres a new result.
+    const tagsList = useSelector(state => state.tags); // Forces re-render when tags are added.
 
-    // local state for inputbox for tags
-    const [inputTag, setTag] = useState('');
-    const [tagId, setTagId] = useState(tags.length); 
-
+    const [inputTag, setTag] = useState(''); // Local state for Tags
+    const [tagID, setTagID] = useState(tagsList.length); // Ensuring ID always increments up.
     const dispatch = useDispatch();
 
-    // Renders the individual tag items.
-    const renderTagItems = tags.map(tag => {
-        return <TagItem key={tag.id} item={tag} />
-    })
+    const renderTagItems = tagsList.map(tag => <TagItem key={tag.id} item={tag} />);
 
-    // Functions for handling user interaction
-    const handleTagInput = (e) => {
-        setTag(e.target.value);
+    const handleTagInput = (event) => { 
+        setTag(event.target.value);
     }
-    
-    const handleTagEnter = (e) => { 
-        if (e.which === 13) { // enter (13)
-            handleAdd();
+
+    const handleTagSubmit = (event) => {
+        if (event.which === 13) { // Enter key
+            handleAdd()
         }
     }
 
-    const handleAdd = () => { // clears & increments for id.
+    const handleAdd = () => { // Saves Tag to App state.
         if (inputTag.trim() !== '') {
-            dispatch(addTag({id: tagId, tag: inputTag}));
-            setTagId(tagId + 1); 
+            dispatch(addTag({id: tagID, tag: inputTag}));
+            setTagID(tagID + 1); 
             setTag('');
         }
     }
 
-    const handleClear = () => { // only clearable if tags list exists.
-        if (tags !== undefined && tags.length !== 0) {
-            dispatch(clearTags())
+    const handleClear = () => {
+        if (tagsList.length > 0) {
+            dispatch(clearTags());
         }
-    } 
+    }
 
     return(
         <Container className='tags-container'>
-            <InputGroup className='tags-save-form'>
-
-                <InputGroup.Prepend>
-                    <OverlayTrigger
-                        placement='bottom'
-                        overlay={
-                            <Tooltip>
-                                Add tags to narrow down the generator's results!
-                            </Tooltip>
-                        }
-                    >    
-                        <InputGroup.Text className='tags-header'>TAG</InputGroup.Text>
-                    </OverlayTrigger>
-                </InputGroup.Prepend>
-
-                <FormControl 
-                    className='form-input tags-input' 
-                    onChange={handleTagInput} 
-                    onKeyDown={handleTagEnter} 
-                    value={inputTag} 
+            <InputGroup>
+                <FormControl
+                    className='tags-input'
+                    value={inputTag}
+                    placeholder='Add tags to narrow results!'
+                    onChange={(event) => handleTagInput(event)}
+                    onKeyDown={(event) => handleTagSubmit(event)}
                     autoComplete='off'
-                />
-  
+                />    
                 <InputGroup.Append>
-                    <Button className='tags-btn' onClick={() => handleAdd()}>ADD</Button>
-                    <Button className='tags-btn' variant='danger' onClick={() => handleClear()}>CLEAR</Button>
+                    <Button
+                        onClick={() => handleAdd()}
+                        className='tags-add'
+                    >
+                        ADD
+                    </Button>
                 </InputGroup.Append>
-            
             </InputGroup>
-                            
-            <div className='tags-list'>
-                {renderTagItems}
-            </div>
 
+            <Container>
+                <button 
+                    className='tags-clear'
+                    onClick={() => handleClear()}
+                >
+                    Clear Tags
+                </button>
+
+                <div className='tags-list'>
+                    {renderTagItems}
+                </div>
+                
+            </Container>
         </Container>
-    );
+    );  
 }
-
 
 export default TagsList;

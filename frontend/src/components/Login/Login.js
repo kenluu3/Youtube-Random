@@ -1,42 +1,78 @@
-// bootstrap components
+import { useState } from 'react';
+
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { useDispatch, useSelector } from 'react-redux';
-
-// routing
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 import './login.css';
 
 function Login() {
 
+    const initialState = {
+        username: '',
+        password: ''
+    }
 
+    const [input, setInput] = useState(initialState);
 
-        return(
-            <Container className='login-container'>
-                <header className='text-center login-header form-header'>YouTube Random</header>
+    const handleInputUsername = (event) => {
+        setInput({...input, username: event.target.value});
+    }
 
-                <Form className='login-form'>
-                    <Form.Group className='login-input-wrapper'>
-                        <Form.Control className='form-input' type='text' placeholder='Email or username' autoComplete='off'></Form.Control>
-                    </Form.Group>
+    const handleInputPassword = (event) => {
+        setInput({...input, password: event.target.value});
+    }
+    
+    const handleLogin = () => {
+        console.log(input);
+    }
 
-                    <Form.Group className='login-input-wrapper'>
-                        <Form.Control className='form-input' type='password' placeholder='Password' autoComplete='off'></Form.Control>
-                        <Link to='' className='login-link'>Forgot password?</Link>
-                    </Form.Group>
+    return (
+        <Container className='login-container'>
+            <header className='login-header form-text-color'>
+                YOUTUBE ON RANDOM
+            </header>
 
-                    <Form.Group className='login-button-container'>
-                        <Button id='login-btn'>Login</Button>
-                        <Form.Label id='login-signup' className='form-text-color'>Need an account?</Form.Label>
-                        <Link to='register' className='login-link'>Sign up here</Link>
-                    </Form.Group>
-                </Form>
-            </Container>
-        );
+            <Form className='login-form'>
+                <Form.Group className='login-input-wrapper'>
+                    <Form.Control 
+                        className='form-input-field'
+                        type='text'
+                        placeholder='Email or Username'
+                        autoComplete='off'
+                        value={input.username}
+                        onChange={event => handleInputUsername(event)}
+                    />
+                </Form.Group>
 
+                <Form.Group className='login-input-wrapper'>
+                    <Form.Control 
+                        className='form-input-field'
+                        type='password'
+                        placeholder='Password'
+                        autoComplete='off'
+                        value={input.password}
+                        onChange={event => handleInputPassword(event)}
+                    />
+                </Form.Group>
+
+                <Form.Group className='login-button-container'>
+                    <Button
+                        id='login-btn'
+                        onClick={() => handleLogin()}
+                    > 
+                        Login
+                    </Button>
+
+                    <Form.Label className='login-signup'> Need an account?
+                        <Link to='/register'> Sign up here </Link>
+                    </Form.Label>
+                </Form.Group>
+            </Form>
+        </Container>
+    )
 }
 
 export default Login;

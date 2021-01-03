@@ -1,10 +1,11 @@
 import { Fragment } from 'react';
 
-// Global Apps Stylesheet
+// Common App CSS
 import './App.css';
+import './styles/buttons.css';
 import './styles/forms.css';
 
-// Main Page Components
+// Main Components
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';

@@ -1,13 +1,31 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
-// bootstrap components
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-// Local stylesheet
 import './register.css';
 
+function Register() {
+
+    const initialState = {
+        username: '',
+        name: '',
+        email: '',
+        password: ''
+    };
+
+    const [user, setUser] = useState(initialState);
+
+
+    return(
+        <h1>Register</h1>
+    );
+}
+
+
+
+/*
 class Register extends Component {
 
     render() {
@@ -41,6 +59,7 @@ class Register extends Component {
     }
 }
 
+*/
 
 
 export default Register;

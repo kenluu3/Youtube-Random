@@ -1,29 +1,37 @@
-.form-header, .form-input, .form-text-color {
-    color: white;
+.form-text-color {
+    color: whitesmoke;
 }
 
-.form-input {
-    font-size: 2vmax;
+.form-input-field, .form-input-field:active, .form-input-field:focus {
     background-color: black;
+}
+
+.form-input-field {
+    font-size: 2vmax;
     border: none;
     border-radius: 0;
     border-bottom: 1px solid grey;
 }
 
-.form-input:active, .form-input:focus{
+.form-input-field:focus, .form-input-field:active {
     color: white;
-    background-color: black;
     border-color: #87ceeb;
 }
 
+@media (min-width: 768px) { 
+    .form-input-field {
+        font-size: 2.5vmax;
+    }
+}
 
-/*
-@media (min-width: 576px) { ... } good for this size
+@media (min-width: 992px) {
+    .form-input-field {
+        font-size: 3vmax;
+    }
+}
 
-@media (min-width: 768px) { ... } good for this size
-
-@media (min-width: 992px) { ... }
-
-@media (min-width: 1200px) { ... }
-
-*/
+@media (min-width: 1200px) {
+    .form-input-field {
+        font-size: 1vmax;
+    }
+}

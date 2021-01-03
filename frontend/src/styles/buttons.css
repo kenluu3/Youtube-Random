@@ -1,0 +1,25 @@
+.btn {
+    border: none;
+    border-radius: 0;
+    font-size: 2vmax;
+}
+
+@media (min-width: 768px) { 
+    .btn {
+        font-size: 2.5vmax;
+    }
+}
+
+
+@media (min-width: 992px) {
+    .btn {
+        font-size: 3vmax;
+    }
+}
+
+@media (min-width: 1200px) {
+    .btn {
+        font-size: 0.85vmax;
+    }
+}
+

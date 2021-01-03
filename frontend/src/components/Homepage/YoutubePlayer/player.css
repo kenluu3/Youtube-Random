@@ -1,0 +1,33 @@
+#player {
+    width: 100%;
+    height: 35vh;
+    background-color: black;
+    border: none;
+    margin-bottom: 1vh;
+    z-index: -1;
+}
+
+#video-generate {
+    margin-top: 2vh;
+    width: 100%;
+}
+
+.player-initial {
+    color: white;
+    font-size: 1.85vmax;
+    font-weight: bolder;
+    text-align: center;
+    padding: 2.5vh 0 2.5vh 0;
+    border-top: 1px solid grey;
+}
+
+/*
+@media (min-width: 576px) { ... } good for this size
+
+@media (min-width: 768px) { ... } good for this size
+
+@media (min-width: 992px) { ... }
+
+@media (min-width: 1200px) { ... }
+
+*/

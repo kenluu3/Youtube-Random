@@ -1,0 +1,65 @@
+.card {
+    background-color: black;
+    border-color: black;
+    border-radius: 0;
+}
+
+.card, .video-channel {
+    color: white;
+}
+
+.card-header {
+    padding: 1.5vmin;
+    display: flex;
+    align-items: center;
+    background-color: #131313;
+}
+
+.card-body {
+    background-color: #202020;
+}
+
+.video-title, .video-more-info {
+    font-size: 2.1vmax;
+}
+
+.video-more-info {
+    margin-left: auto;
+    height: inherit;
+}
+
+.video-title {
+    max-width: 95%;
+    word-wrap: break-word;
+}
+
+.card-body {
+    padding: 2.5vmin;
+}
+
+.video-channel {
+    font-size: 2vmax;
+    word-wrap: break-word;
+    max-width: 80%;
+}
+
+.video-channel:hover, .video-channel:active, .video-channel:focus,
+.video-save:hover, .video-save:active, .video-save:focus {
+    color: #87cee8;
+}
+
+.card-text {
+    border-top: 1px solid grey;
+    padding-top: 1.5vh;
+    font-size: 1.8vmax;
+}
+
+.video-save {
+    background: inherit;
+    border: none;
+    text-align: right;
+    width: 100%;
+    color: grey;
+    font-size: 1.5vmax;
+}
+

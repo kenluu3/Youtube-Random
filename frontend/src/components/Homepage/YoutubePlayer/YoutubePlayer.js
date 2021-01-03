@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-// bootstrap components 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
-import './youtubeplayer.css';
+// Child Component
+import VideoInformation from './VideoInformation/VideoInformation';
 
+// Axios API Client
 import { getVideo } from '../../../api-client';
 
+import './player.css';
+// https://www.youtube.com/embed/0_1MyxmGCoY
 function YoutubePlayer() {
 
-    const initialState = {
+    const baseURL = 'https://www.youtube.com/embed/'; // URL to embed the youtube video.
+    const initialVideo = { // Response Format
         channel: '',
         channelID: '',
         description: '',
@@ -19,23 +23,19 @@ function YoutubePlayer() {
         title: ''
     }
 
-    const tags = useSelector(state => state.tags);
-    const [video, setVideo] = useState(initialState);
+    const tagsList = useSelector(state => state.tags);
+    const [video, setVideo] = useState(initialVideo);
 
-    const generateVideo = async (tags) => {
-        const baseURL = 'https://www.youtube.com/embed/';
-        try {
-            let response = await getVideo(tags);
-            const video = {...response.data.video, id: baseURL.concat(response.data.video.id + '?autoplay=1')}
-            setVideo(video);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const handleSave = (video) => { // saves the current video into favorites.
-        console.log(`Video saved: ${video}`)
-    }
+    const generateVideo = () => {
+        // Updates local video state.
+        getVideo(tagsList)
+            .then(response => {
+                setVideo({...response.data.video, id: baseURL.concat(response.data.video.id + '?autoplay=1')}); 
+            })
+            .catch(err => {
+                console.log(JSON.stringify(err));
+            });
+    }   
 
     return(
         <Container>
@@ -43,30 +43,25 @@ function YoutubePlayer() {
                 id='player'
                 title='Youtube Player'
                 allowFullScreen
-                allow='autoplay'
-                sandbox='allow-scripts allow-same-origin allow-presentation'
-                src={video.id}
+                src={video.id} // autoplay onload
             />
 
-            <div className='video-info-container'>
-                <header className='video-title'>{video.title.toUpperCase()}</header>    
-            
-                <article>
-                    <header className='video-channel-container'>
-                        <span className='video-channel'>{video.channel}</span>
-                        <Button className='video-save' onClick={() => handleSave(video)}>Save</Button>
-                    </header>
+            { video.id !== '' ?  // Displays Information if video is generated
+                <VideoInformation video={video} /> 
+            : 
+                <div className='player-initial'> Press the generate button to play a random video!</div>
+            }
 
-                    <p className='video-description'>{video.description}</p>
-                </article>
-            </div>   
-
-            <Button id='video-generate' variant='success' onClick={() => generateVideo(tags)}>GENERATE</Button>
-
+            <Button 
+                id='video-generate'
+                variant='success'
+                onClick={() => generateVideo()}
+            >
+                GENERATE
+            </Button>
         </Container>
-    )
-}
+    );
 
-            
+}
 
 export default YoutubePlayer;

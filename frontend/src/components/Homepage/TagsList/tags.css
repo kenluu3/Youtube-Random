@@ -1,46 +1,42 @@
 .tags-container {
-    margin-top: 2.5vh;
+    margin-top: 3vh;
 }
 
-.tags-save-form {
-    padding-bottom: 2vh;
-    padding-top: 2vh;
-    border-top: 1px solid grey;
-}
-
-.tags-header, .tags-btn {
+.tags-add, .tags-input {
+    font-size: 1.5vmax;
     border-radius: 0;
+}
+
+.tags-input, 
+.tags-input:active, .tags-input:focus {
+    background-color: #202020;
+    color: white;
     border: 1px solid black;
 }
 
-.tags-btn {
-    font-size: 0.5rem;
+.tags-add,
+.tags-add:active, .tags-add:focus {
+    border: 1px solid black;
 }
 
-.tags-btn:active, .tags-btn:focus {
-    border-color: black !important;
-}
-
-.tags-header {
-    color: white;
-    font-size: 2vmax;
-    background-color: black;
-}
-
-.tags-input {
+.tags-clear {
+    background: inherit;
     border: none;
-    background-color: #090909;
+    text-align: right;
+    width: 100%;
+    color: grey;
+    font-size: 1.75vmax;
+    margin-bottom: 1.5vh;
 }
 
-.tooltip-inner {
-    font-size: 0.6rem;
-    border: 2px solid black;
+.tags-clear:hover, .tags-clear:active, .tags-clear:focus {
+    color: #87cee8;
 }
 
 .tags-list {
-    margin-top: 2vh;
-    padding-top: 2vh;
-    border-top: 1px solid grey;
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin-top: 1.5vh;
 }
 
 /*
