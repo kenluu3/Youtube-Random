@@ -16,11 +16,14 @@ function YoutubePlayer() {
 
     const baseURL = 'https://www.youtube.com/embed/'; // URL to embed the youtube video.
     const initialVideo = { // Response Format
-        channel: '',
-        channelID: '',
-        description: '',
-        id: '',
-        title: ''
+        channel: `San E ft Raina (After School) - A Midsummer Night's Sweetness with lyrics`,
+        channelID: 'UCweOkPb1wVVH0Q0Tlj4a5Pw',
+        description: `San E ft Raina (After School) - A Midsummer Night's Sweetness
+        English + Romanization + Hangul subs
+        
+        Watch the official music video at http://www.youtube.com/watch?v=nkfMN-...`,
+        id: baseURL.concat('14W4wGWSnlY'),
+        title: `San E ft Raina (After School) - A Midsummer Night's Sweetness with lyrics`
     }
 
     const tagsList = useSelector(state => state.tags);
@@ -38,7 +41,7 @@ function YoutubePlayer() {
     }   
 
     return(
-        <Container>
+        <Container className='player-container'>
             <iframe 
                 id='player'
                 title='Youtube Player'
@@ -46,19 +49,21 @@ function YoutubePlayer() {
                 src={video.id} // autoplay onload
             />
 
+            <Button 
+                id='video-generate'
+                variant='dark'
+                block
+                onClick={() => generateVideo()}
+            >
+                GENERATE
+            </Button>
+
             { video.id !== '' ?  // Displays Information if video is generated
                 <VideoInformation video={video} /> 
             : 
                 <div className='player-initial'> Press the generate button to play a random video!</div>
             }
 
-            <Button 
-                id='video-generate'
-                variant='success'
-                onClick={() => generateVideo()}
-            >
-                GENERATE
-            </Button>
         </Container>
     );
 

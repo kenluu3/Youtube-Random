@@ -2,18 +2,46 @@
     display: flex;
     width: auto;
     background-color: #202020;
-    border: 1px solid black;
+    border: 2px solid black;
     margin-right: 1.5vw;
     margin-bottom: 1vh;
 }
 
 .tag, .tag-remove {
     color: white;
-    font-size: 0.65rem;
-    padding: 1.5vmin;
+    font-size: 0.25rem;
+}
+.tag-remove {
+    border-left: 1px solid black;
+    padding: 1.5vmin 2.5vmin 1.5vmin 2.5vmin;
 }
 
 .tag {
     background-color: inherit;
+    padding: 1.5vmin;
 }
+
+@media (min-width: 768px) { 
+    .tag, .tag-remove {
+        font-size: 1rem;
+    }
+} 
+
+@media (min-width: 992px) { 
+    .tag, .tag-remove {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .tag, .tag-remove {
+        font-size: 0.8rem;
+    }
+
+    .tag-remove, .tag {
+        padding: 1vmin 1.5vmin 1vmin 1.5vmin;
+    }
+}
+
+
 

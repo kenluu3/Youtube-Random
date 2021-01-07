@@ -1,18 +1,24 @@
 import { useState } from 'react';
 
-import Accordian from 'react-bootstrap/Accordion';
+import { useHistory } from 'react-router-dom';
+
+import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 
 import './videoinfo.css';
-import Accordion from 'react-bootstrap/Accordion';
 
 function VideoInformation(props) {
 
     const baseChannelURL = 'https://youtube.com/channel/';
     const [infoIcon, setInfoIcon] = useState('+');
+    const history = useHistory();
 
     const handleSave = () => {
-        console.log('Saved Video to Favorites!');
+        if (localStorage.getItem('token')) {
+            console.log('Saved Video to Favorites!');
+        } else {
+            history.push('/login'); // cannot save without logging in.
+        }
     }
 
     const handleToggle = () => {
@@ -24,16 +30,16 @@ function VideoInformation(props) {
     }
 
     return(
-        <Accordian>
+        <Accordion>
             <Card>
-                <Accordian.Toggle 
+                <Accordion.Toggle 
                     as={Card.Header} 
                     eventKey='0' 
                     onClick={() => handleToggle()}
                 >
                     <header className='video-title'>{props.video.title}</header>
                     <span className='video-more-info'>{infoIcon}</span>
-                </Accordian.Toggle>
+                </Accordion.Toggle>
                 <Accordion.Collapse eventKey='0'>
                     <Card.Body>
                         <a 
@@ -52,7 +58,7 @@ function VideoInformation(props) {
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
-        </Accordian>
+        </Accordion>
     )
 }
 

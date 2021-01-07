@@ -51,38 +51,37 @@ function TagsList() {
 
     return(
         <Container className='tags-container'>
-            <InputGroup>
+            <header className='tags-header'>TAGS</header>
                 <FormControl
-                    className='tags-input'
+                    className='form-input-field tags-input'
                     value={inputTag}
                     placeholder='Add tags to narrow results!'
                     onChange={(event) => handleTagInput(event)}
                     onKeyDown={(event) => handleTagSubmit(event)}
                     autoComplete='off'
                 />    
-                <InputGroup.Append>
-                    <Button
-                        onClick={() => handleAdd()}
-                        className='tags-add'
-                    >
-                        ADD
-                    </Button>
-                </InputGroup.Append>
-            </InputGroup>
+                    
 
-            <Container>
+            <div className='tags-action-wrapper'>
                 <button 
                     className='tags-clear'
                     onClick={() => handleClear()}
                 >
                     Clear Tags
                 </button>
-
-                <div className='tags-list'>
-                    {renderTagItems}
-                </div>
                 
-            </Container>
+                <Button
+                    onClick={() => handleAdd()}
+                    className='tags-add'
+                    variant='dark'
+                >
+                    ADD
+                </Button>
+            </div>
+
+            <div className='tags-list'>
+                {renderTagItems}
+            </div>
         </Container>
     );  
 }

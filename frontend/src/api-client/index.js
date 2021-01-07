@@ -17,17 +17,18 @@ export const getVideo = (queryList) => {
     return axios.get('/vid/generate', config);
 }   
 
-
 // Login route.
 export const postLogin = (user) => {
-    console.log(`login api ${JSON.stringify(user)}`);
-
     return axios.post('/login', user);
 }
 
 // Register Route
 export const postRegister = (user) => {
-    console.log(`register api ${JSON.stringify(user)}`);
 
     return axios.post('/register', user);
 }
+
+export const getProfile = () => {
+
+    return axios.get('/profile/', {params});  
+} 

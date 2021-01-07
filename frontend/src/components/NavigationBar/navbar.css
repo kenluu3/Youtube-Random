@@ -1,31 +1,30 @@
 .navbar {
     background-color: black;
     padding: 0 1.5vw 0 3vw;
+    margin-bottom: 2vh;
     border-bottom: 1px solid white;
 }
 
 .logo {
     border: 1px solid white;
     border-radius: 50%;
-    width: 5.5vmax;
-    height: 5.5vmax;
+    width: 5vmax;
+    height: 5vmax;
 }
 
 .navbar-toggler-icon {
-    font-size: 1.85vmax;
+    font-size: 0.6rem;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
 }
 
 .nav-link {
-    font-size: 2vmax;
-    text-align: center;
+    font-size: 0.25rem;
+    text-align: right;
     color: white;
-    z-index: 1000;
 }
 
 .nav-link:active, .nav-link:focus, .nav-selected {
     color: #87ceeb;
-    z-index: 1000;
 }
 
 @media (min-width: 768px) {
@@ -33,8 +32,8 @@
         padding: 1vh 2.5vw 1vh 2.5vw;
     }
 
-    .nav-link {
-        font-size: 2.5vmax;
+    .nav-link, .navbar-toggler-icon  {
+        font-size: 1.25rem;
     }
 }
 
@@ -43,6 +42,10 @@
     .navbar {
         padding: 1.5vh 3.5vw 1.5vh 3.5vw;
         border-bottom: 2px solid white;
+    }
+
+    .nav-link, .navbar-toggler-icon  {
+        font-size: 1.65rem;
     }
 }
 
@@ -62,8 +65,7 @@
     }
     
     .nav-link {
-        font-size: 0.9vmax;
-        font-weight: bold;
+        font-size: 1rem;
     }
 }
 

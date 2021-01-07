@@ -1,41 +1,53 @@
-import { Component, Fragment } from 'react';
+import { Fragment } from 'react';
 
-// Bootstrap
 import Container from 'react-bootstrap/Container';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
-// components in profile page
-//import FavoritesList from '../FavoritesList/FavoritesList';
+// child components
+import UserInformation from './UserInformation/UserInformation';
+import Favorites from './Favorites/Favorites';
 
-import logo from './icon.jpg';
+import icon from './icon.jpg';
 
 import './profile.css';
 
-class Profile extends Component {
+import { useParams } from 'react-router-dom';
 
-    constructor() {
-        super();
+function Profile() {
 
-        this.state = {};
+    const isLogged = localStorage.getItem('token');
+    let { user } = useParams(); // extract user from url param
+    console.log(user);
+    let defaultTab = 'favorites'; // default to favorites tab if user is not signed in.
+    if (isLogged) {
+        defaultTab = 'user-information'
     }
 
-    render() {
-        return(
-            <Fragment>
+    return(
+        <Container> 
+            <Container className='profile-header'>
+                <img
+                    src={icon}
+                    alt='icon'
+                    id='profile-icon'
+                />
+                <header className='profile-name'>USER</header>
+            </Container>
 
-                <Container className='profile-header'>
-                    <img 
-                        src={logo}
-                        className='profile-pic' 
-                        alt='Profile'
-                    />
-                    <header className='profile-name'>NAME FILLER</header>                   
-                </Container>
-
-            </Fragment>
-        );
-    }
-
-}
+            <Tabs defaultActiveKey={defaultTab} id='profile-parent-tab'>
+                <Tab eventKey='user-information' title='Information'>
+                    <UserInformation />
+                </Tab>
+                { /*
+                <Tab eventKey='favorites' title='Favorites'>
+                    <Favorites />
+                </Tab>
+                */} 
+            </Tabs>
+        </Container>
+    );
+}   
 
 
 export default Profile;

@@ -1,19 +1,23 @@
-.profile-pic {
-    width: 30vmin;
-    height: 30vmin;
-    border: 2px solid whitesmoke;
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#profile-icon {
+    width: 35vw;
+    height: 35vw;
+    border: 1px solid white;
     border-radius: 50%;
 }
 
-.profile-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.profile-name {
+    font-size: 2rem;
     color: white;
 }
 
-.profile-name {
-    font-size: 10vmin;
-    font-weight: 700;
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 1vh;
 }

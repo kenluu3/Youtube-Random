@@ -19,8 +19,9 @@
     background-color: #202020;
 }
 
-.video-title, .video-more-info {
-    font-size: 2.1vmax;
+.video-title, .video-more-info, .video-channel {
+    font-size: 0.7rem;
+    word-wrap: break-word;
 }
 
 .video-more-info {
@@ -37,12 +38,6 @@
     padding: 2.5vmin;
 }
 
-.video-channel {
-    font-size: 2vmax;
-    word-wrap: break-word;
-    max-width: 80%;
-}
-
 .video-channel:hover, .video-channel:active, .video-channel:focus,
 .video-save:hover, .video-save:active, .video-save:focus {
     color: #87cee8;
@@ -51,7 +46,7 @@
 .card-text {
     border-top: 1px solid grey;
     padding-top: 1.5vh;
-    font-size: 1.8vmax;
+    font-size: 0.5rem;
 }
 
 .video-save {
@@ -60,6 +55,38 @@
     text-align: right;
     width: 100%;
     color: grey;
-    font-size: 1.5vmax;
+    font-size: 0.5rem;
 }
+
+@media (min-width: 768px) {
+    .video-title, .video-more-info, .video-channel {
+        font-size: 1.25rem;
+    }
+
+    .card-text, .video-save {
+        font-size: 1rem;
+    }
+    
+} 
+
+@media (min-width: 992px) {
+    .video-title, .video-more-info, .video-channel {
+        font-size: 2rem;
+    }
+
+    .card-text, .video-save {
+        font-size: 1.75rem;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .video-title, .video-more-info, .video-channel {
+        font-size: 1.15rem;
+    }
+
+    .card-text, .video-save {
+        font-size: 0.9rem;
+    }
+}
+
 

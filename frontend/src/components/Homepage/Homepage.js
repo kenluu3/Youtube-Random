@@ -1,14 +1,14 @@
-import { Fragment } from 'react';
-
 import YoutubePlayer from './YoutubePlayer/YoutubePlayer';
 import TagsList from './TagsList/TagsList';
 
+import './homepage.css';
+
 function Homepage() {
     return(
-        <Fragment>
+        <div id='homepage'>
             <YoutubePlayer />
             <TagsList />
-        </Fragment>
+        </div>
     )
 }
 
