@@ -1,7 +1,6 @@
-import { Fragment } from 'react';
+import { useEffect, Fragment } from 'react';
 
 // Common App CSS
-import './App.css';
 import './styles/buttons.css';
 import './styles/forms.css';
 
@@ -15,26 +14,27 @@ import Homepage from './components/Homepage/Homepage';
 // Routing
 import { Switch, Route, useLocation } from 'react-router-dom';
 
+// App state
+
 function App() {
 
-  const validNavbarPaths = [
-    '/', '/home', '/profile'
-  ];
-
   const location = useLocation().pathname;
+  const hideRoutes = ['/login', '/register']; // routes to hide navbar
+
+  const showNav = hideRoutes.indexOf(location) > - 1 ? false : true; 
 
   return ( 
-    <Fragment>
-      { validNavbarPaths.indexOf(location) > -1 ? <NavigationBar /> : null }
-      <Switch> 
-        <Route path='/' exact component={Homepage} />
-        <Route path='login' component={Login} />
-        <Route path='/home' component={Homepage} />
-        <Route path='/register' component={Register} />
-        <Route path='/profile/:user' component={Profile} />
-        <Route path='*' component={Login} />
-      </Switch>
-    </Fragment>
+      <Fragment>
+        { showNav ? <NavigationBar /> : null }
+        <Switch> 
+          <Route path='/' exact component={Homepage} />
+          <Route path='/login' component={Login} />
+          <Route path='/home' component={Homepage} />
+          <Route path='/register' component={Register} />
+          <Route path='/profile/:user' component={Profile} />
+          <Route path='*' component={Homepage} />
+        </Switch>
+      </Fragment>
   );
 }
 

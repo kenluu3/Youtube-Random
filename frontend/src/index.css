@@ -7,3 +7,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #090909 !important;
 }
+
+*:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}

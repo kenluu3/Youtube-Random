@@ -1,8 +1,7 @@
-const passport = require("passport");
-
 const userModel = require("../models/user"); /* User Model */ 
 
 /* JWT Strategy for Managing Login Session */
+const passport = require("passport");
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const JWTStrategy = require("passport-jwt").Strategy;
 
@@ -15,43 +14,50 @@ passport.use("login", new localStrategy({
     usernameField: "username",
     passwordField: "password",
     session: false
-}, async function(username, password, done) {
-    try {
-        const user = username.toLowerCase(); /* Case in-sensitive in DB */
+}, (username, password, done) => {
+    const user = username.toLowerCase(); // case insensitive in DB
 
-        await userModel.findOne({$or: [{username: user}, {email: user}]}, (err, result) => {
-            if (err || result === null) { /* User not found */
-                return done(null, false, {message: "User does not exist."});
+    userModel.findOne({$or: [{username: user}, {email: user}]})
+        .then(result => { // returns null if not found.
+            if (result) { // user exists 
+                bcrypt.compare(password, result.password, (err, same) => {
+                    if (err) { 
+                        return done(null, false, {success: false, message: 'Server Error: ' + err});
+                    }
+
+                    if (same) { // password matches
+                        return done(null, result, {success: same, message: 'You have successfully logged in!'});
+                    } else {
+                        return done(null, false, {success: same, message: 'Password is incorrect. Please try again'});
+                    }
+                });
+            } else {
+                return done(null, false, {success: false, message: 'This user does not exist. Please try again'});
             }
-
-            /* User is found -- Compare password */
-            bcrypt.compare(password, result.password).then(res => {
-                /* Successful Login */
-                return done(null, result, {message: "Login is successful." + res});
-            }).catch(err => { /* Password Incorrect */
-                return done(null, false, {message: "Incorrect password" + err});
-            });
-
+        })
+        .catch(err => { // db error 
+            return done(null, false, {success: false, message: err});
         });
-    } catch(err) {/* DB Error -- Returns Error Message */
-        return done(null, false, {message: err}); 
-    }
 }));
 
 /* JWT for Authentication */
-passport.use("jwt", new JWTStrategy({
+passport.use('jwt', new JWTStrategy({
     secretOrKey: process.env.SECRET_KEY,
-    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("jwt"),
-}, function(payload, done) {
-    try { /* Use payload information to validate user. */
-        userModel.findOne({username: payload.username}, function(err, user) {
-            if (err || user === null) { /* User not found-- JWT Invalid */
-                done(null, false, {message: err});
-            } else {
-                done(null, user, {message: "User is authenticated."});
+    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('jwt')
+}, (payload, done) => { // passportjwt automatically respects expiration time do not need to manually verify.
+
+    userModel.findOne({username: payload.username.toLowerCase()}) // verifying the payload user actually exists.
+        .then(user => {
+            if (user) { // user found in db means user is authenticated.
+                // user is accessed in next req via req.user and info message via req.authInfo
+                done(null, user, {success: true, message: 'The user is an authenticated user.'});
+            } else { 
+                done(null, false, {success: false, message: 'The user is not found. This token is invalid.'});
             }
-        });
-    } catch(err) { /* DB Error -- Returns Error Message */
-        done(null, false, {message: err});
-    } 
-}));
+        })
+        .catch(err => { // db error
+            console.log('passport error:' + err);
+            done(null, false, {success:false, message: 'An error has occurred.'});
+        })
+    }
+));

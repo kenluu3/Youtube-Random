@@ -24,11 +24,20 @@ export const postLogin = (user) => {
 
 // Register Route
 export const postRegister = (user) => {
-
     return axios.post('/register', user);
 }
 
-export const getProfile = () => {
-
-    return axios.get('/profile/', {params});  
+// Retrieve Profile of authenticated User.
+export const getProfile = (user, token) => {
+    return axios.get(`/profile/${user}`, {headers: {Authorization: token}});
 } 
+
+// Save Profile to DB
+export const patchProfile = (user, update, token) => {
+    return axios.patch(`/profile/${user}`, update, {headers: {Authorization: token}})
+}
+
+// Save to Favorites List 
+export const putFavorites = () => {
+    console.log('saved');
+}

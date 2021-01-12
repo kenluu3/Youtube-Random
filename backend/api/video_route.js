@@ -4,30 +4,31 @@ const router = express.Router();
 const {google} = require("googleapis");
 const youtube = google.youtube("v3");
 
-/* Results for Video */
-const maxResults = 50;
+const passport = require("passport"); // For Login/Authentication 
+const userModel = require("../models/user");
 
-/* Returns a Randomly selected video from Youtube */
-router.get("/generate", async function(req,res) {
+// Returns a Randomly selected video from Youtube 
+router.get('/generate', async function(req,res) {
 
     const chosenVideo = Math.floor(Math.random() * (maxResults - 1) + 1);
+    const maxResults = 50; // Max results returned from Youtube API
 
-    /* Attaching Tags to Request */
+    // Attaching Tags to Request 
     var query = [];
-    var chosenQ = ""; /* Chosen query */
+    var chosenQ = ''; // chosen tag
 
-    /* Query Params input as CSV */
+    // Query Params input as CSV 
     if (req.query.q !== undefined) {
         query = req.query.q.split(',');
         const numOpts = query.length;
         chosenQ = query[Math.floor(Math.random() * numOpts)];
     }   
 
-    /* Params for YT API Search */
+    // Params for YT API Search 
     const searchParams = {
-        part: "snippet", 
+        part: 'snippet', 
         auth: process.env.YT_KEY, 
-        type: "video", 
+        type: 'video', 
         maxResults: maxResults, 
         q: chosenQ
     };
@@ -36,7 +37,7 @@ router.get("/generate", async function(req,res) {
         const searchResults = await youtube.search.list(searchParams);
         const video = searchResults.data.items[chosenVideo];
         
-        const selectedVideo = { /* Video Selected for User */
+        const selectedVideo = { // video returned to user.
             id: video.id.videoId, 
             title: video.snippet.title, 
             description: video.snippet.description,
@@ -44,12 +45,9 @@ router.get("/generate", async function(req,res) {
             channelID: video.snippet.channelId
         };
         res.status(200).send({success: true, video: selectedVideo});
-    } catch(err) { /* API Limit Reached (error) */
-        res.status(500).send({success: false, message: "Error has occurred. " + err});
+    } catch(err) { // API Limit Reached (error) 
+        res.status(500).send({success: false, message: 'Error has occurred. ' + err});
     }
-
 });
-
-
 
 module.exports = router; 

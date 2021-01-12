@@ -37,7 +37,7 @@ function Register() {
         if (validInputs) { 
             try {
             const response = await postRegister(user);
-            console.log(JSON.stringify(response.data));
+
             history.push('/login');
             } catch (err) {
                 const response = err.response.data; // error response from server.
@@ -114,44 +114,5 @@ function Register() {
         </Container>
     );
 }
-
-
-
-/*
-class Register extends Component {
-
-    render() {
-        return (
-            <Container className='register-container'>
-                <header className='text-center register-header form-header'>Register</header>
-
-                <Form className='register-form'>    
-
-                    <Form.Group className='register-input-wrapper'>
-                        <Form.Control className='form-input' name='name' type='text' placeholder='Name'></Form.Control>
-                    </Form.Group>
-
-                    <Form.Group className='register-input-wrapper'>
-                        <Form.Control className='form-input' name='email' type='text' placeholder='Email'></Form.Control>
-                    </Form.Group>
-
-                    <Form.Group className='register-input-wrapper'>
-                        <Form.Control className='form-input' name='username' type='text' placeholder='Username'></Form.Control>
-                    </Form.Group>
-
-                    <Form.Group className='register-input-wrapper'>
-                        <Form.Control className='form-input' name='password' type='password' placeholder='Password'></Form.Control>
-                    </Form.Group>
-
-                    <Button id='register-btn' variant='success'>Register</Button>
-
-                </Form>
-            </Container>
-        );
-    }
-}
-
-*/
-
 
 export default Register;

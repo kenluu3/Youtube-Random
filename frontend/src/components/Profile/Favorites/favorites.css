@@ -1,0 +1,46 @@
+.favorites-list-container {
+    margin-top: 3.5vh;
+}
+
+.favorites-table {
+    background-color: inherit;
+}
+
+.favorites-header, .favorites-content {
+    font-size: 0.6rem;
+}
+
+.favorites-remove-btn {
+    text-align: center;
+    border: none;
+    color: white;
+    background-color: inherit;
+    padding: 0;
+}
+
+.favorites-link {
+    color: white;
+}
+
+@media (min-width: 768px) { 
+    .favorites-header, .favorites-content {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .favorites-header, .favorites-content {
+        font-size: 1.75rem;
+    }
+}
+
+@media (min-width: 1200px) { 
+
+    .favorites-list-container {
+        margin-top: 5vh;
+    }
+    
+    .favorites-header, .favorites-content {
+        font-size: 1rem;
+    }
+}

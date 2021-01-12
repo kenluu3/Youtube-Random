@@ -1,6 +1,6 @@
 .user-info-container {
-    margin-top: 5vh;
-    padding: 0 12vw 0 12vw;
+    margin-top: 3.5vh;
+    padding: 0 13vw 2vh 13vw;
 }
 
 .info-input {
@@ -8,5 +8,24 @@
 }
 
 #info-save-btn {
-    margin-top: 5vh;
+    margin-top: 7.5vh;
+}
+
+@media (min-width: 1200px) { 
+
+    #info-save-btn {
+        margin-top: 7.5vh;
+    }
+
+    .user-info-container {
+        margin-top: 5vh;
+        padding: 0 15vw 1vh 15vw;
+    }
+
+    .info-input {
+        background-color: inherit;
+        margin-bottom: 3vh;
+    }
+    
+    
 }

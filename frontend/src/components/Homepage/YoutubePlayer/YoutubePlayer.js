@@ -16,14 +16,11 @@ function YoutubePlayer() {
 
     const baseURL = 'https://www.youtube.com/embed/'; // URL to embed the youtube video.
     const initialVideo = { // Response Format
-        channel: `San E ft Raina (After School) - A Midsummer Night's Sweetness with lyrics`,
-        channelID: 'UCweOkPb1wVVH0Q0Tlj4a5Pw',
-        description: `San E ft Raina (After School) - A Midsummer Night's Sweetness
-        English + Romanization + Hangul subs
-        
-        Watch the official music video at http://www.youtube.com/watch?v=nkfMN-...`,
-        id: baseURL.concat('14W4wGWSnlY'),
-        title: `San E ft Raina (After School) - A Midsummer Night's Sweetness with lyrics`
+        channel: '',
+        channelID: '',
+        description: '',
+        id: '',
+        title: ''
     }
 
     const tagsList = useSelector(state => state.tags);

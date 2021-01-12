@@ -5,38 +5,34 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import { Link, useHistory } from 'react-router-dom';
-import { postLogin } from '../../api-client';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/actions/authActions';
 
 import './login.css'; 
 
 function Login() {
 
     const history = useHistory();
-    const initialState = {
+    const dispatch = useDispatch();
+
+    const initialState = { 
         username: '',
         password: ''
     }
 
-    const [user, setUser] = useState(initialState);
+    const [user, setUser] = useState(initialState); // form state
 
-    const handleInput = (event) => {
+    const handleInput = (event) => { 
         const {name, value} = event.target;
         setUser({...user, [name]: value});
     }
 
-    const handleLogin = async () => {
-        try {
-            let response = await postLogin(user);
-            if (response.status) {
-                localStorage.setItem('token', response.data.token);
-                history.push('/home'); // redirect to homepage
-            }
-        } catch(err) {
-            const message = err.response;
-            if (message !== undefined) {
-                console.log(JSON.stringify(message));
-            }
-        }
+    const redirect = () => { // if login successful, allow redirect.
+        history.push('/home'); 
+    }
+
+    const handleLogin = () => {
+        dispatch(login(user, redirect));
     }
 
     return (

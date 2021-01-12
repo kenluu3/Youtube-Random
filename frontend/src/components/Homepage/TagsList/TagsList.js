@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 
 // child component
@@ -12,8 +11,6 @@ import { addTag, clearTags } from '../../../redux/actions/tagsActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './tags.css';
-
-// Next Steps: Implement solution to only re-render child elements when added.
 
 function TagsList() {
 

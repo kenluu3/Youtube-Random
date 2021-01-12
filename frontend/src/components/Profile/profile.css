@@ -21,3 +21,49 @@
     justify-content: center;
     margin-top: 1vh;
 }
+
+.nav-tabs .nav-link, .nav-tabs {
+    color: #495057;
+    font-size: 0.8rem;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    border: none;
+    color: #87ceeb;
+    background-color: inherit;
+}
+
+@media (min-width: 768px) { 
+    .profile-name {
+        font-size: 3.5rem;
+    }
+
+    .nav-tabs .nav-link, .nav-tabs {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .profile-name {
+        font-size: 5rem;
+    }
+
+    .nav-tabs .nav-link, .nav-tabs {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 1200px) { 
+    #profile-icon {
+        width: 25vmin;
+        height: 25vmin;
+    }
+
+    .profile-name {
+        font-size: 3rem;
+    }
+
+    .nav-tabs .nav-link, .nav-tabs {
+        font-size: 1.25rem;
+    }
+}
