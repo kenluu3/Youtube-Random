@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
+import { putFavorites } from '../../../../api-client';
+import { useSelector } from 'react-redux';
 
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
@@ -10,12 +12,20 @@ import './videoinfo.css';
 function VideoInformation(props) {
 
     const baseChannelURL = 'https://youtube.com/channel/';
+    const auth = useSelector(state => state.auth);
     const [infoIcon, setInfoIcon] = useState('+');
     const history = useHistory();
 
-    const handleSave = () => {
-        if (localStorage.getItem('token')) {
-            console.log('Saved Video to Favorites!');
+    const handleSave = async () => { // saves video to DB.
+        if (auth.jwt) {
+            try {
+                let response = await putFavorites(auth.user, props.video, auth.jwt); 
+                if (response.data.success) { // saved successfully [Saves only once]
+                    console.log(response.data.message); 
+                }
+            } catch(err) { // failed to save.
+                console.log(err.response.data);  
+            }
         } else {
             history.push('/login'); // cannot save without logging in.
         }

@@ -24,7 +24,7 @@ function UserInformation(props) {
             return {...profileInfo, password: ''};
         }
 
-        return {...props.profile};
+        return {...props.profile, password: ''};
     }
 
     let [profile, setProfile] = useState(initial()); 
@@ -42,6 +42,8 @@ function UserInformation(props) {
         if (Object.keys(update).length > 0) { // fields to be saved
             try {
                 let response = await patchProfile(auth.user, update, auth.jwt);
+                
+                setProfile({...profile, password: ''}); // reset password field after saving.
 
                 if (response.data.token) { // token only returned if username changes.
                     localStorage.setItem('token', response.data.token); // update localStorage.

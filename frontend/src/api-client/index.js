@@ -38,6 +38,10 @@ export const patchProfile = (user, update, token) => {
 }
 
 // Save to Favorites List 
-export const putFavorites = () => {
-    console.log('saved');
+export const putFavorites = (user, video, token) => {
+    return axios.put('/vid/save', {user: user, video: video}, {headers: {Authorization: token}});
+}
+
+export const deleteFavorite = (user, id, token) => {
+    return axios.put('/vid/remove', {user: user, videoID: id}, {headers: {Authorization: token}});
 }

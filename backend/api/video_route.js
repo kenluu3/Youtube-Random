@@ -8,10 +8,10 @@ const passport = require("passport"); // For Login/Authentication
 const userModel = require("../models/user");
 
 // Returns a Randomly selected video from Youtube 
-router.get('/generate', async function(req,res) {
+router.get('/generate', async (req,res) => {
 
-    const chosenVideo = Math.floor(Math.random() * (maxResults - 1) + 1);
     const maxResults = 50; // Max results returned from Youtube API
+    const chosenVideo = Math.floor(Math.random() * (maxResults - 1) + 1);
 
     // Attaching Tags to Request 
     var query = [];
@@ -48,6 +48,49 @@ router.get('/generate', async function(req,res) {
     } catch(err) { // API Limit Reached (error) 
         res.status(500).send({success: false, message: 'Error has occurred. ' + err});
     }
+});
+
+// Saving Video to Favorites List.
+router.put('/save', passport.authenticate('jwt', {session: false}), async (req,res) => {
+
+    const { user, video } = req.body; 
+
+    const opts = {
+        new: true,
+    }
+
+    userModel.findOneAndUpdate({username: user}, {$addToSet: { favorites: video}}, opts) // Saves video into DB favorites list (unique only)
+        .then(result => {
+            if (result) {
+                res.status(200).send({success: true, message: 'The video has been saved successfully.'});
+            } else { // user not found.
+                res.status(400).send({success: false, message: 'This user does not exist. Saving to favorites has failed.'});
+            }
+        })
+        .catch(err => {
+            console.log(JSON.stringify(err));
+            res.status(500).send({success: false, message: 'An issue has occurred with the save.'});
+        });
+});
+
+// Removing Video from Favorites List.
+router.put('/remove', passport.authenticate('jwt', {session: false}), async(req,res) => {
+    const { user, videoID } = req.body;
+
+    console.log(user);
+
+    userModel.findOneAndUpdate({username: user}, {$pull: {favorites: {id: videoID }}})
+        .then(result => {
+            if (result) {
+                res.status(200).send({success: true, message: 'The video has been removed from favorites.'});
+            } else {
+                res.status(400).send({success:false, message: 'This user does not exist. Removal failed.'});
+            }
+        })
+        .catch(err => { // DB error.
+            console.log(JSON.stringify(err));
+            res.status(500).send({success: false, message: 'An issue has occurred with favorites removal.'});
+        });
 });
 
 module.exports = router; 

@@ -30,7 +30,7 @@ function YoutubePlayer() {
         // Updates local video state.
         getVideo(tagsList)
             .then(response => {
-                setVideo({...response.data.video, id: baseURL.concat(response.data.video.id + '?autoplay=1')}); 
+                setVideo(response.data.video); 
             })
             .catch(err => {
                 console.log(JSON.stringify(err));
@@ -43,7 +43,7 @@ function YoutubePlayer() {
                 id='player'
                 title='Youtube Player'
                 allowFullScreen
-                src={video.id} // autoplay onload
+                src={video.id ? baseURL.concat(video.id + '?autoplay=1') : ''} // autoplay onload
             />
 
             <Button 
@@ -60,7 +60,6 @@ function YoutubePlayer() {
             : 
                 <div className='player-initial'> Press the generate button to play a random video!</div>
             }
-
         </Container>
     );
 

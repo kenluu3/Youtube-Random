@@ -89,7 +89,7 @@ router.route('/profile/:user')
                     .then(result => {
                         if (result) {
                             const { favorites } = result;
-                            res.status(200).send({success: true, profile: favorites}); // access only to favorites list.
+                            res.status(200).send({success: true, profile: favorites, authorized: false}); // access only to favorites list.
                         } else {
                             res.status(400).send({success: false, message: 'This user does not exist.'});
                         }
@@ -108,7 +108,7 @@ router.route('/profile/:user')
                     favorites: favorites
                 }
 
-                return res.status(200).send({success: true, profile: data});
+                return res.status(200).send({success: true, profile: data, authorized: true});
             }
         })(req,res,next);
     })

@@ -20,23 +20,19 @@ function Profile() {
 
     const auth = useSelector(state => state.auth); // Current AUTH app state.
     let [profile, setProfile] = useState(''); // Profile component state.
-    let [favorites, setFavorites] = useState(''); 
     const { user } = useParams(); // URI user.
 
     const sameUser = () => { // Determines if Auth user is viewing own profile.
         return user === auth.user; 
     }
 
+    // When switching from one user to another ==> Causes an error because component already mounted and the data is not being retrieved again.
+
     useEffect(() => { 
         const retrieveProfile = async() => {
             try {
                 const response = await getProfile(user, auth.jwt);
-                const {favorites, ...information} = response.data.profile;
-
-                // profile will only have a value if user is authenticated & viewing own profile.
-                setProfile({...information, password: ''}); // passing empty password for initial state.
-                setFavorites({...response.data.profile.favorites}); // only contains favorites list.
-
+                setProfile(response.data.profile); // update local profile.
             } catch(err) { // server error occurred;
                 console.log(err.response.data); 
             }
@@ -44,7 +40,7 @@ function Profile() {
 
         retrieveProfile(); 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Occurs after initial render.
+    }, [user]); // Occurs after initial render.
 
     return(
         <Fragment>
@@ -68,7 +64,7 @@ function Profile() {
                             null
                         }
                         <Tab eventKey='favorites' title='Favorites'>
-                            <Favorites favoriteList={favorites}/>
+                            <Favorites favorites={profile} sameUser={sameUser()} token={auth.jwt} authuser={auth.user}/>
                         </Tab> 
                     </Tabs>
                 </Container>

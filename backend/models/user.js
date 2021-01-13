@@ -45,10 +45,14 @@ USchema.pre('save', async function(next) {
 // Pre hook to hash password before updates.
 USchema.pre('findOneAndUpdate', async function(next) {
     try {
-        const updatePassword = this.getUpdate().$set.password;
-        if (updatePassword) { // only hash password if it exists.
-            const hash = await bcrypt.hash(updatePassword, JSON.parse(process.env.SALT_ROUNDS));
-            this.getUpdate().$set.password = hash;
+        const setUpdate = this.getUpdate().$set; // checks type of update.
+
+        if (setUpdate) {
+            let updatePassword = setUpdate.password;            
+            if (updatePassword) { // only hash password if it exists.
+                const hash = await bcrypt.hash(updatePassword, JSON.parse(process.env.SALT_ROUNDS));
+                this.getUpdate().$set.password = hash;
+            }
         }
     } catch(err) {
         console.log("An error has occurred while hashing password. Error message: " + err);
