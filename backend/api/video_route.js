@@ -75,11 +75,9 @@ router.put('/save', passport.authenticate('jwt', {session: false}), async (req,r
 
 // Removing Video from Favorites List.
 router.put('/remove', passport.authenticate('jwt', {session: false}), async(req,res) => {
-    const { user, videoID } = req.body;
+    const { videoID } = req.body;
 
-    console.log(user);
-
-    userModel.findOneAndUpdate({username: user}, {$pull: {favorites: {id: videoID }}})
+    userModel.findOneAndUpdate({username: req.user.username}, {$pull: {favorites: {id: videoID }}})
         .then(result => {
             if (result) {
                 res.status(200).send({success: true, message: 'The video has been removed from favorites.'});

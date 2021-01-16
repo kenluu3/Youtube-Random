@@ -1,16 +1,15 @@
 const initialState = {
     user: '',
-    jwt: ''
 }
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'auth/LOGIN':
             return action.payload
-        case 'auth/LOADJWT':
-            return {user: action.payload.user, jwt: action.payload.jwt}
+        case 'auth/LOADUSER':
+            return {user: action.payload.user}
         case 'auth/LOGOUT':
-            return {jwt: ''}
+            return {user: ''}
         default:
             return state
     }

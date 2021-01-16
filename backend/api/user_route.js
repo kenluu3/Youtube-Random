@@ -14,7 +14,7 @@ function validEmail(email) {
 // Generates JWT
 function genJWT(payload) {
     const token = jwt.sign(payload, process.env.SECRET_KEY, {expiresIn: '3h'}); 
-    return 'jwt ' + token;
+    return 'Bearer ' + token; // bearer scheme
 }
 
 // Login Route 
@@ -89,7 +89,7 @@ router.route('/profile/:user')
                     .then(result => {
                         if (result) {
                             const { favorites } = result;
-                            res.status(200).send({success: true, profile: favorites, authorized: false}); // access only to favorites list.
+                            res.status(200).send({success: true, favorites: favorites}); // access only to favorites list.
                         } else {
                             res.status(400).send({success: false, message: 'This user does not exist.'});
                         }
@@ -105,10 +105,9 @@ router.route('/profile/:user')
                     name: name,
                     username: username, 
                     email: email,
-                    favorites: favorites
                 }
 
-                return res.status(200).send({success: true, profile: data, authorized: true});
+                return res.status(200).send({success: true, profile: data, favorites: favorites});
             }
         })(req,res,next);
     })

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import { deleteFavorite } from '../../../api-client';
@@ -7,31 +7,28 @@ import './favorites.css';
 
 function Favorites(props) {
 
-    const [favoritesList,setFavoritesList] = useState(props.sameUser ? props.favorites.favorites : props.favorites); // prop data different if user is logged in & viewing own profile.
+    const [favoritesList,setFavoritesList] = useState(props.favorites); // prop data different if user is logged in & viewing own profile.
+    const baseChannel = 'https://youtube.com/channel/';
+    const baseYT = 'https://www.youtube.com/watch?v=';
 
+    useEffect(() => { // re-initialize if props change (only changes if a new user is being viewed.)
+        setFavoritesList(props.favorites);
+    }, [props.favorites]);
 
     const handleRemove = async (id) => { // removes the item from favorites.
-        console.log(id);
         try {
-            let response = await deleteFavorite(props.authuser, id, props.token);
+            let response = await deleteFavorite(id);
             if (response.data.success) { // successful delete.
-                setFavoritesList(favoritesList.filter(favorite => {
-                    if (favorite.id !== id) { // removes the video with removed ID.
-                        return favorite;
-                    }
-                }));
-                console.log(response.data.message);
+                setFavoritesList(favoritesList.filter(favorite => favorite.id !== id));
             }
         } catch(err) { // error occurred in removal.
             console.log(err.response.data);
         } 
     }
 
+    const noItems = props.sameUser ? 'You do not have any favorites saved!' : 'This user does not have any favorites.';
+
     const renderFavorites = favoritesList.map(favorite => {
-
-        const baseChannel = 'https://youtube.com/channel/';
-        const baseYT = 'https://www.youtube.com/watch?v=';
-
         return(
             <tr className='favorites-content' key={favorite.id}>
                 <td>
@@ -72,11 +69,11 @@ function Favorites(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {renderFavorites}
+                        {renderFavorites }
                     </tbody>
                 </Table>
-            : props.sameUser ? <h5 className='text-center text-white'>You do not have any favorites saved!</h5> // different message depending on user.
-                : <h5 className='text-center text-white'>This user does not have any favorites!</h5>
+            : 
+                <h5 className='text-white text-center'>{noItems}</h5>
             }
         </Container>
     );

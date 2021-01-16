@@ -14,8 +14,6 @@ import Homepage from './components/Homepage/Homepage';
 // Routing
 import { Switch, Route, useLocation } from 'react-router-dom';
 
-// App state
-
 function App() {
 
   const location = useLocation().pathname;

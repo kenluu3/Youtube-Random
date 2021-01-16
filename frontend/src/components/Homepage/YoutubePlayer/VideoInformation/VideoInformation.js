@@ -17,9 +17,9 @@ function VideoInformation(props) {
     const history = useHistory();
 
     const handleSave = async () => { // saves video to DB.
-        if (auth.jwt) {
+        if (auth.user) {
             try {
-                let response = await putFavorites(auth.user, props.video, auth.jwt); 
+                let response = await putFavorites(auth.user, props.video); 
                 if (response.data.success) { // saved successfully [Saves only once]
                     console.log(response.data.message); 
                 }

@@ -9,27 +9,41 @@ export const login = (userInfo, successRedirect) => {
 
             const action = {
                 type: 'auth/LOGIN',
-                payload: { user: user, jwt: token }
+                payload: { user: user }
             }
             localStorage.setItem('token', token);
             successRedirect(); // redirect to homepage.
             dispatch(action);
             
         } catch(err) { // error occurred don't need to dispatch acton.
-            console.log('An error has occurred with login' + err.response.data);
+            console.log('An error has occurred with login' + err);
+            const action = { 
+                type: 'auth/LOGOUT'
+            };
+
+            dispatch(action);
         }
     }
 }
 
-export const loadJWT = (token) => {
+export const loadUser = (token) => {
     return (dispatch) => {
         const decoded = jwt_decode(token);
-        const action = {
-            type: 'auth/LOADJWT',
-            payload: { user: decoded.username, jwt: token}
-        };
 
-        dispatch(action);
+        if (Date.now() <= decoded.exp * 1000) { // ensure jwt is still valid
+            const action = {
+                type: 'auth/LOADUSER',
+                payload: { user: decoded.username }
+            };
+            dispatch(action);
+        } else { // expired jwt
+            localStorage.clear(); 
+            const action = { 
+                type: 'auth/LOGOUT'
+            };
+
+            dispatch(action);
+        }
     }
 }
 

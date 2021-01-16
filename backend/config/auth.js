@@ -43,7 +43,7 @@ passport.use("login", new localStrategy({
 /* JWT for Authentication */
 passport.use('jwt', new JWTStrategy({
     secretOrKey: process.env.SECRET_KEY,
-    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('jwt')
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
 }, (payload, done) => { // passportjwt automatically respects expiration time do not need to manually verify.
 
     userModel.findOne({username: payload.username.toLowerCase()}) // verifying the payload user actually exists.
