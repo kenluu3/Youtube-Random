@@ -1,19 +1,16 @@
 require("dotenv").config(); 
-require("./config/auth.js"); /* Authorizaton File */
+require("./config/auth.js"); // passportjs auth
 
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const cors = require('cors');
-const userRoutes = require('./api/user_route'); /* Routes for User-Related activities */
-const videoRoutes = require('./api/video_route'); /* Routes for Youtube Video */
+const userRoutes = require('./api/user_route'); // Routes for User-Related activities 
+const videoRoutes = require('./api/video_route'); // Routes for Youtube Video 
+const path = require('path');
 
 const app = express();
-
-var corsOptions = { // only allow requests from listed origins.
-    origin: 'http://localhost:3000'
-}
 
 /* Connect to DB */
 mongoose.connect(process.env.DB_HOST, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
@@ -25,13 +22,22 @@ app.use(passport.initialize());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); 
 
-// allow cors for requests
-app.use(cors(corsOptions));
+// allow requests from any endpoint.
+app.use(cors());
 
 /* Routes for User-Related activities */
 app.use("/", userRoutes);
 app.use("/vid", videoRoutes);
 
+// Serve static assets in production (heroku)
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('frontend/build'));
+    
+    app.get('*', (req, res) => { // serves the front-end react app.
+        res.send(path.resolve(__dirname, '../frontend', 'build', 'index.html'));
+    });
+}
 
 const port = process.env.PORT || 3800;
 
