@@ -6,3 +6,4 @@ Users can enter filter tags to narrow down a genre for random videos to be playe
 
 Youtube videos are generated via Youtube Data API and the application is developed with the MERN stack
 
+Heroku App: https://glacial-fortress-60360.herokuapp.com
