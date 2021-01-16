@@ -22,6 +22,7 @@ export const login = (userInfo, successRedirect) => {
             };
 
             dispatch(action);
+            
         }
     }
 }

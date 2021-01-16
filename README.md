@@ -1,17 +1,11 @@
 # Youtube-Random
 
-To-do:
+A web application that allows a user to discover new youtube videos at played at random.
 
-Profile Page + Editing User Information (Maybe Uploading a Profile Picture as well)
+Users can enter filter tags to narrow down a random video to be played and for extra functionality can register an account to save videos for future referencing.
 
-Navbar: 
- - Updating Links based on login status
- - Adding Username to Navbar 
+Youtube videos are generated via Youtube Data API and the application is developed with the MERN stack.
 
-Favorites List: 
- - Allow users to save video links to their favorites list
- ?? how to display this
 
-Search: 
- - Allow view of other user profiles 
+
 

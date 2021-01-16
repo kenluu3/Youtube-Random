@@ -21,7 +21,6 @@ function Login() {
     }
 
     const [user, setUser] = useState(initialState); // form state
-    const [error, setErrorCode] = useState(0); // 0 - no error, 1 - username error, 2 - password error, 3 - missing credentials
 
     const handleInput = (event) => { 
         const {name, value} = event.target;
