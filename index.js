@@ -33,7 +33,7 @@ app.use("/vid", videoRoutes);
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('frontend/build'));
     app.get('*', (req, res) => { // serves the front-end react app.
-        res.send(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+        res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
     });
 }
 
