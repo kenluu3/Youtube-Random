@@ -74,7 +74,7 @@ router.post('/register', (req, res) => {
 });
 
 /* Routes related to user profile */
-router.route('/profile/:user')
+router.route('/profile/user/:user')
     .get((req,res,next) => {
         passport.authenticate('jwt', {session: false}, (err, user, info) => {
             if (err) { 

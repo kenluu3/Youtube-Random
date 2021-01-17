@@ -45,12 +45,12 @@ export const postRegister = (user) => {
 
 // Retrieve Profile of authenticated User.
 export const getProfile = (user) => {
-    return axios.get(`/profile/${user}`);
+    return axios.get(`/profile/user/${user}`);
 } 
 
 // Save Profile to DB
 export const patchProfile = (user, update) => {
-    return axios.patch(`/profile/${user}`, update);
+    return axios.patch(`/profile/user/${user}`, update);
 }
 
 // Save to Favorites List 
