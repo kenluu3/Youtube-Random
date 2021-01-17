@@ -12,7 +12,7 @@ import Register from './components/Register/Register';
 import Homepage from './components/Homepage/Homepage';
 
 // Routing
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
 
 function App() {
 
@@ -25,12 +25,11 @@ function App() {
       <Fragment>
         { showNav ? <NavigationBar /> : null }
         <Switch> 
-          <Route path='/' exact component={Homepage} />
           <Route path='/login' component={Login} />
           <Route path='/home' component={Homepage} />
           <Route path='/register' component={Register} />
           <Route path='/profile/:user' component={Profile} />
-          <Route path='*' component={Homepage} />
+          <Redirect from='*' to='/home' />
         </Switch>
       </Fragment>
   );
