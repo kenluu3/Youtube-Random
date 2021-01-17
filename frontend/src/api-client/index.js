@@ -1,13 +1,14 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'; 
 
-const root = process.env.baseURL || 'http://localhost:3800'; // server root url.
+const root = process.env.BASE_URL || 'http://localhost:3800'; // server root url.
 
 axios.defaults.baseURL = root;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 axios.interceptors.request.use((config) => { // http interceptor to attach jwt on requests.
     const token = localStorage.getItem('token');
+    console.log('baseURL: ' + process.env.BASE_URL);
 
     if (token && (Date.now() <= jwt_decode(token).exp * 1000)) { // if jwt exists & valid, then append to header.
         config.headers.Authorization = token;
