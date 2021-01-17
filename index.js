@@ -31,7 +31,7 @@ app.use("/vid", videoRoutes);
 
 // Serve static assets in production (heroku)
 if (process.env.NODE_ENV === 'production') {
-    // Set static folder
+
     app.use(express.static('frontend/build'));
     
     app.get('*', (req, res) => { // serves the front-end react app.

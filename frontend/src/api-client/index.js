@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'; 
 
-const root = 'http://localhost:3800'; // server root url.
+const root = process.env.baseURL || 'http://localhost:3800'; // server root url.
 
 axios.defaults.baseURL = root;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
