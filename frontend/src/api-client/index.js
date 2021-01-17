@@ -8,8 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 axios.interceptors.request.use((config) => { // http interceptor to attach jwt on requests.
     const token = localStorage.getItem('token');
-    console.log('baseURL: ' + process.env.BASE_URL);
-
+    console.log('Heroku root: ' + root); 
     if (token && (Date.now() <= jwt_decode(token).exp * 1000)) { // if jwt exists & valid, then append to header.
         config.headers.Authorization = token;
     } else if (token) {
