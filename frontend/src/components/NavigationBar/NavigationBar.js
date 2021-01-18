@@ -15,7 +15,7 @@ function NavigationBar() {
     const dispatch = useDispatch();
     let auth = useSelector(state => state.auth);
 
-    if (auth.user == '') { // on render, checks if the user is logged in via localStorage.
+    if (auth.user === '') { // on render, checks if the user is logged in via localStorage.
         let token = localStorage.getItem('token');
         if (token) {
             dispatch(loadUser(token)); // updates app state with user.
@@ -29,14 +29,20 @@ function NavigationBar() {
     return(
         <Navbar collapseOnSelect expand='xl'> 
             <Navbar.Brand>
-                <Link to='/home'>
-                    <img 
-                        src={Logo}
-                        alt='YTR'
-                        className='logo'
-                    />
-                </Link>
-                <span style={{color: 'white', marginLeft: '10px'}}>{auth.user}</span>
+                {auth.user ? 
+                <Fragment>
+                    <Link to='/home'>
+                        <img 
+                            src={Logo}
+                            alt='YTR'
+                            className='logo'
+                        />
+                    </Link>
+                    <span style={{color: 'white', marginLeft: '10px'}}>{auth.user}</span>
+                </Fragment>
+                :
+                    <span style={{color: 'white', marginLeft: '10px', fontSize: '1rem'}}>YouTube Random</span>
+                }
             </Navbar.Brand>
 
             <Navbar.Toggle aria-controls='navbar-collapse-content' />
