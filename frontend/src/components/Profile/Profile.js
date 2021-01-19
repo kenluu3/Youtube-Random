@@ -42,10 +42,11 @@ function Profile() {
                     });
                 }
             } catch(err) { // server error occurred;
-                console.log(err); 
+                setProfile('');
+                console.log(err.response.data); 
             }
         }
-
+        
         retrieveProfile(); 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]); // Occurs after everytime path changes.
@@ -78,7 +79,7 @@ function Profile() {
                     </Tabs>
                 </Container>
             :
-                null 
+                <h1 className='text-center text-white' style={{marginTop: '40vh'}}>The {user} does not exist!</h1>
             }
         </Fragment>
     );

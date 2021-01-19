@@ -63,6 +63,7 @@ function Login() {
                         autoComplete='off'
                         value={user.password}
                         onChange={event => handleInput(event)}
+                        required
                     />
                 </Form.Group>
 
@@ -71,6 +72,7 @@ function Login() {
                         id='login-btn'
                         block
                         onClick={() => handleLogin()}
+                        required
                     > 
                         Login
                     </Button>

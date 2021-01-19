@@ -9,7 +9,7 @@
 
 .tag, .tag-remove {
     color: white;
-    font-size: 0.5rem;
+    font-size: 0.75rem;
 }
 .tag-remove {
     border-left: 1px solid black;

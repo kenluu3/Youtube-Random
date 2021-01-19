@@ -21,7 +21,7 @@
 }
 
 .tags-add {
-    font-size: 0.5rem;
+    font-size: 0.75rem;
     border-radius: 0;
     margin-left: auto;
 }
@@ -30,7 +30,7 @@
     background: inherit;
     border: none;
     color: grey;
-    font-size: 0.4rem;
+    font-size: 0.65rem;
 }
 
 .tags-clear:hover, .tags-clear:active, .tags-clear:focus {
