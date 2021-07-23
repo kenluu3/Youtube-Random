@@ -1,54 +1,37 @@
-const express = require("express");
+// dependencies
+const express = require('express');
 const router = express.Router();
+const videoUtil = require('../utils/video_util');
 
-const {google} = require("googleapis");
-const youtube = google.youtube("v3");
+// retrieve YouTube route.
+router.get('/get', async (req, res) => {
+
+    let filter = '';
+    let result = {};
+
+    //incoming query will be csv format.
+    if (req.query.filter) {
+        const filterList = req.query.filter.split(",")
+        filter = filterList[Math.floor(Math.random() * filterList.length)]
+    }
+    
+    // invoke request.
+    try {
+        result = await videoUtil.getVideo(filter);
+    } catch(e) {
+        result = e;
+    }
+
+    return res.send(result);
+})
+
+module.exports = router;
+
+/*
 
 const passport = require("passport"); // For Login/Authentication 
 const userModel = require("../models/user");
 
-// Returns a Randomly selected video from Youtube 
-router.get('/generate', async (req,res) => {
-
-    const maxResults = 50; // Max results returned from Youtube API
-    const chosenVideo = Math.floor(Math.random() * (maxResults - 1) + 1);
-
-    // Attaching Tags to Request 
-    var query = [];
-    var chosenQ = ''; // chosen tag
-
-    // Query Params input as CSV 
-    if (req.query.q !== undefined) {
-        query = req.query.q.split(',');
-        const numOpts = query.length;
-        chosenQ = query[Math.floor(Math.random() * numOpts)];
-    }   
-
-    // Params for YT API Search 
-    const searchParams = {
-        part: 'snippet', 
-        auth: process.env.YT_KEY, 
-        type: 'video', 
-        maxResults: maxResults, 
-        q: chosenQ
-    };
-
-    try {
-        const searchResults = await youtube.search.list(searchParams);
-        const video = searchResults.data.items[chosenVideo];
-        
-        const selectedVideo = { // video returned to user.
-            id: video.id.videoId, 
-            title: video.snippet.title, 
-            description: video.snippet.description,
-            channel: video.snippet.channelTitle,
-            channelID: video.snippet.channelId
-        };
-        res.status(200).send({success: true, video: selectedVideo});
-    } catch(err) { // API Limit Reached (error) 
-        res.status(500).send({success: false, message: 'Error has occurred. ' + err});
-    }
-});
 
 // Saving Video to Favorites List.
 router.put('/save', passport.authenticate('jwt', {session: false}), async (req,res) => {
@@ -92,3 +75,4 @@ router.put('/remove', passport.authenticate('jwt', {session: false}), async(req,
 });
 
 module.exports = router; 
+*/

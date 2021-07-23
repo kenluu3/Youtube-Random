@@ -1,15 +1,16 @@
-const userModel = require("../models/user"); /* User Model */ 
+/*
+const userModel = require("../models/user"); /* User Model 
 
-/* JWT Strategy for Managing Login Session */
+/* JWT Strategy for Managing Login Session 
 const passport = require("passport");
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const JWTStrategy = require("passport-jwt").Strategy;
 
-/* Local Strategy for Login */
+/* Local Strategy for Login 
 const localStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
-/* Login */
+/* Login 
 passport.use("login", new localStrategy({
     usernameField: "username",
     passwordField: "password",
@@ -40,7 +41,7 @@ passport.use("login", new localStrategy({
         });
 }));
 
-/* JWT for Authentication */
+/* JWT for Authentication 
 passport.use('jwt', new JWTStrategy({
     secretOrKey: process.env.SECRET_KEY,
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
@@ -61,3 +62,4 @@ passport.use('jwt', new JWTStrategy({
         })
     }
 ));
+*/

@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt"); /* For hashing password */
+/*const mongoose = require("mongoose");
+const bcrypt = require("bcrypt"); /* For hashing password 
 
 const Schema = mongoose.Schema;
 
-/* User Model stored in DB */
+/* User Model stored in DB 
 const USchema = new Schema({
     email: {
         type: String,
@@ -29,13 +29,13 @@ const USchema = new Schema({
     }
 });
 
-/* Pre-Hook Function to Hash Password before Saving */
+/* Pre-Hook Function to Hash Password before Saving 
 USchema.pre('save', async function(next) {
     try {
         let user = this;
         const hash = await bcrypt.hash(user.password, JSON.parse(process.env.SALT_ROUNDS));
-        user.password = hash; /* Save Hashed Password */
-    } catch(err) { /* Error occurred while hashing */
+        user.password = hash; /* Save Hashed Password 
+    } catch(err) { /* Error occurred while hashing 
         console.log("An error has occurred while hashing password. Error message: " + err);
     } finally {
         next();
@@ -65,3 +65,5 @@ USchema.pre('findOneAndUpdate', async function(next) {
 const UserModel = mongoose.model("user", USchema);
 
 module.exports = UserModel;
+
+*/

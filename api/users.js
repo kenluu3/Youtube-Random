@@ -1,3 +1,4 @@
+/*
 const express = require("express");
 const router = express.Router();
 const passport = require("passport"); // For Login/Authentication 
@@ -73,7 +74,7 @@ router.post('/register', (req, res) => {
     }
 });
 
-/* Routes related to user profile */
+/* Routes related to user profile 
 router.route('/profile/user/:user')
     .get((req,res,next) => {
         passport.authenticate('jwt', {session: false}, (err, user, info) => {
@@ -165,3 +166,4 @@ router.route('/profile/user/:user')
     });
 
 module.exports = router;
+*/
