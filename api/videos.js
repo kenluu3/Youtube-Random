@@ -1,7 +1,6 @@
-// dependencies
 const express = require('express');
 const router = express.Router();
-const videoUtil = require('../utils/video_util');
+const videoUtil = require('../utils/videoUtil');
 
 // retrieve YouTube route.
 router.get('/get', async (req, res) => {
@@ -15,11 +14,10 @@ router.get('/get', async (req, res) => {
         filter = filterList[Math.floor(Math.random() * filterList.length)]
     }
     
-    // invoke request.
     try {
         result = await videoUtil.getVideo(filter);
-    } catch(e) {
-        result = e;
+    } catch(err) {
+        result = err;
     }
 
     return res.send(result);

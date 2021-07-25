@@ -1,31 +1,42 @@
-// dependencies
 const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const port = process.env.PORT || 3800;
+// db
+const dbInstance = require('./utils/dbUtil');
 
-// middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ 'extended':false }));
+async function main() {
 
-// routing
-const videoRoutes = require('./api/videos');
-const userRoutes = require('./api/users');
+    const port = process.env.PORT || 3800;
 
-//app.use('/user/', userRoutes);
-app.use('/video', videoRoutes);
+    // start db connection.
+    await dbInstance.connect();
+    
+    // middleware
+    app.use(cors());
+    app.use(express.json());
+    app.use(express.urlencoded({ 'extended':false }));
 
-app.listen(port, () => {
-    console.log(`Application listening on port: ${port}`)
-})
+    // routing
+    const videoRoutes = require('./api/videos');
+    const userRoutes = require('./api/users');
 
+    app.use('/user/', userRoutes);
+    app.use('/video', videoRoutes);
+
+    // expose web app.
+    app.listen(port, () => {
+        console.log(`Application listening on port: ${port}`)
+    })
+
+}
+
+// start app.
+main();
 
 /*
 require("./config/auth.js"); // passportjs auth
 
-const mongoose = require("mongoose");
 const passport = require("passport");
 
 const path = require('path');
@@ -36,16 +47,6 @@ mongoose.connect(process.env.DB_HOST, {useNewUrlParser: true, useUnifiedTopology
 
 /* Passport Middleware for Authentication 
 app.use(passport.initialize());
-
-/* Process 'Body' from Requests
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); 
-
-// allow requests from any endpoint.
-
-/* Routes for User-Related activities 
-app.use("/", userRoutes);
-app.use("/vid", videoRoutes);
 
 // Serve static assets in production (heroku)
 if (process.env.NODE_ENV === 'production') {

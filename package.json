@@ -24,9 +24,6 @@
     "url": "https://github.com/kenluu3/Youtube-Random/issues"
   },
   "homepage": "https://github.com/kenluu3/Youtube-Random#readme",
-  "devDependencies": {
-    "eslint": "^7.14.0"
-  },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
@@ -35,7 +32,6 @@
     "googleapis": "^65.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",
-    "mongoose": "^5.10.15",
     "npm": "^7.19.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",

@@ -1,3 +1,17 @@
+const express = require('express');
+const router = express.Router();
+
+// db
+const dbInstance = require('../utils/dbUtil').getDB();
+
+router.get('/', async (req, res) => {
+    await dbInstance.collection(process.env.USERS_COLLECTION).insertOne({name: 'ken'});
+    //const users = dbInstance.collection('users');
+    res.send('Hellow World');
+})
+
+module.exports = router;
+
 /*
 const express = require("express");
 const router = express.Router();
