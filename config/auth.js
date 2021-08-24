@@ -1,3 +1,37 @@
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+
+const bcrypt = require('bcrypt');
+
+const userModel = require('../models/user');
+
+// Local Strategy for login authentication
+passport.use(new localStrategy(
+    async function(username, password, done) {
+        try {
+            // Attempts to retrieve the user.
+            const user = await userModel.findOne({ $or: [{ username: username }, { email: username }]}).collation({ locale: "en", strength: 2 });
+            // User does not exist.
+            if (!user) {
+                return done(null, false, { message: `The user ${username} is not registered.` });
+            }
+            // Verifying passwords.
+            const matchPassword = await bcrypt.compare(password, user.password);
+
+            // incorrect password
+            if (!matchPassword) {
+                return done(null, false, { message: 'Incorrect password was entered.' });
+            } 
+            
+            // login successful.
+            return done(null, user, { message: 'The user is authenticated successfully.' });
+        } catch (err) {
+            return done(err, false, { message: 'An error occurred while authenticating user.' });
+        }
+    }
+));
+
+
 /*
 const userModel = require("../models/user"); /* User Model 
 
@@ -6,40 +40,7 @@ const passport = require("passport");
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const JWTStrategy = require("passport-jwt").Strategy;
 
-/* Local Strategy for Login 
-const localStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcrypt");
 
-/* Login 
-passport.use("login", new localStrategy({
-    usernameField: "username",
-    passwordField: "password",
-    session: false
-}, (username, password, done) => {
-    const user = username.toLowerCase(); // case insensitive in DB
-
-    userModel.findOne({$or: [{username: user}, {email: user}]})
-        .then(result => { // returns null if not found.
-            if (result) { // user exists 
-                bcrypt.compare(password, result.password, (err, same) => {
-                    if (err) { 
-                        return done(null, false, {success: false, message: 'Server Error: ' + err});
-                    }
-
-                    if (same) { // password matches
-                        return done(null, result, {success: same, message: 'You have successfully logged in!'});
-                    } else {
-                        return done(null, false, {success: same, message: 'Password is incorrect. Please try again'});
-                    }
-                });
-            } else {
-                return done(null, false, {success: false, message: 'This user does not exist. Please try again'});
-            }
-        })
-        .catch(err => { // db error 
-            return done(null, false, {success: false, message: err});
-        });
-}));
 
 /* JWT for Authentication 
 passport.use('jwt', new JWTStrategy({

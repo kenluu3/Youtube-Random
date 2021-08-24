@@ -1,14 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT || 3800;
 
 // middleware
 app.use(cors());
+app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ 'extended':false }));
+
+// authentication configurations.
+require('./config/auth');
 
 // db connection
 mongoose.connect(process.env.DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });

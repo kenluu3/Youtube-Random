@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const passport = require('passport');
+
 const userModel = require('../models/user');
 const userUtil = require('../utils/userUtil');
 
@@ -41,42 +43,25 @@ router.post('/register', async (req, res) => {
             res.status(400).send({ message: errMessage });
         }
     }
-})
+});
 
+// login user 
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+        if (err || (user == false)) {
+            res.status(401).send({ message: `Failed to authenticate user ${req.body.username}. ${info.message}` });
+        // user is authenticated successfully.
+        } else {
+            const authToken = userUtil.generateToken(user.username);
+            res.send({ message: `User ${user.username} has logged in successfully. `, token: authToken });
+        }
+    })(req, res, next);
+});
 
 module.exports = router;
 
 /*
 
-const passport = require("passport"); // For Login/Authentication 
-
-const jwt = require("jsonwebtoken"); 
-
-// Generates JWT
-function genJWT(payload) {
-    const token = jwt.sign(payload, process.env.SECRET_KEY, {expiresIn: '3h'}); 
-    return 'Bearer ' + token; // bearer scheme
-}
-
-// Login Route 
-router.post('/login', (req, res, next) => {
-
-    passport.authenticate("login", {session: false}, (err, user, info) => {
-        if (err) return next(err); // server error
-        if (!user) return res.status(400).send({success: false, message: info.message}); // invalid user & not authenticated.
-
-        const body = {username: user.username};
-        const jwt = genJWT(body);
-
-        res.status(200).send({ // successful login
-            success: true,
-            user: user.username,
-            token: jwt // jwt scheme
-        });
-
-    })(req, res, next);
-
-});
 
 /* Routes related to user profile 
 router.route('/profile/user/:user')
