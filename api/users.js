@@ -1,30 +1,56 @@
 const express = require('express');
 const router = express.Router();
 
-// db
-const dbInstance = require('../utils/dbUtil').getDB();
+const userModel = require('../models/user');
+const userUtil = require('../utils/userUtil');
 
-router.get('/', async (req, res) => {
-    await dbInstance.collection(process.env.USERS_COLLECTION).insertOne({name: 'ken'});
-    //const users = dbInstance.collection('users');
-    res.send('Hellow World');
+// register user into database.
+router.post('/register', async (req, res) => {   
+
+    const user = new userModel({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+    });
+
+    // missing credentials.
+    if (!(user.username && user.email && user.password)) {
+        res.status(400).send({ message: 'Missing required credentials for registration process. Please provide data in all required fields.' });
+    // invalid email format.
+    } else if (!userUtil.validateEmail(user.email)) {
+        res.status(400).send({ message: `The entered email ${user.email} is not a valid email. Please ensure your email format is correct. `});
+    } else {
+        // create user in database.
+        try {
+            const data = await user.save();
+            res.send({ message: `User registration for ${user.username} has been completed.` });
+            
+        } catch (err) {
+            let errMessage = JSON.stringify(err);
+            // duplicate error 
+            if (err.code == 11000) {
+                // username duplicate
+                if (err.keyPattern.username == 1) {
+                    errMessage = `Username ${user.username} is already registered. Please try again with a different username`;
+                // email duplicate
+                } else if (err.keyPattern.email == 1) {
+                    errMessage = `Email ${user.email} is already registered. Please try again with a different email`;
+                }
+            }    
+            
+            res.status(400).send({ message: errMessage });
+        }
+    }
 })
+
 
 module.exports = router;
 
 /*
-const express = require("express");
-const router = express.Router();
+
 const passport = require("passport"); // For Login/Authentication 
 
-const userModel = require("../models/user");
 const jwt = require("jsonwebtoken"); 
-
-// Regex for valid Email 
-function validEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
 
 // Generates JWT
 function genJWT(payload) {
@@ -50,42 +76,6 @@ router.post('/login', (req, res, next) => {
 
     })(req, res, next);
 
-});
-
-// Register Route 
-router.post('/register', (req, res) => {
-    const user = new userModel({
-        username: req.body.username,
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    });
-
-    if (!user.username || !user.name || !user.email || !user.password) { 
-        res.status(400).send({success: false, message: "Missing credentials. Please fill in all fields."});
-    } else {
-        if (validEmail(user.email)) { 
-            user.username = user.username.toLowerCase(); // saving case insensitive
-            user.email = user.email.toLowerCase();
-
-            user.save((err, document) => {
-                if (err) { // db error
-                    console.log('Document: ' + document + ' Error: ' + JSON.stringify(err));
-                    if (err.code === 11000) { // 11000 - duplicateError
-                        if (err.keyPattern.username >= 1) {  // keyPattern = 1 means already exists (unique field)
-                            res.status(400).send({success: false, message: `The username ${user.username} is already registered. Please try again with a different username.`});
-                        } else if (err.keyPattern.email >= 1) { 
-                            res.status(400).send({success: false, message: `The email ${user.email} is already registered. Please try again with a different email.`});
-                        }
-                    } 
-                } else { // registered succesfully.
-                    res.status(200).send({success: true, message: `The user ${document.username} has been created successfully. You may now login.`});
-                }   
-            });
-        } else { 
-            res.status(400).send({success: false, message: "Please enter a valid email."});
-        }
-    }
 });
 
 /* Routes related to user profile 

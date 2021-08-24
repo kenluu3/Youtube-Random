@@ -10,10 +10,11 @@ router.get('/get', async (req, res) => {
 
     //incoming query will be csv format.
     if (req.query.filter) {
-        const filterList = req.query.filter.split(",")
-        filter = filterList[Math.floor(Math.random() * filterList.length)]
+        const filterList = req.query.filter.split(",");
+        filter = filterList[Math.floor(Math.random() * filterList.length)];
     }
     
+    // gets video object to be returned.
     try {
         result = await videoUtil.getVideo(filter);
     } catch(err) {
