@@ -32,18 +32,8 @@ app.listen(port, () => {
 
 
 /*
-require("./config/auth.js"); // passportjs auth
-
-const passport = require("passport");
-
 const path = require('path');
 
-
-/* Connect to DB 
-mongoose.connect(process.env.DB_HOST, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false});
-
-/* Passport Middleware for Authentication 
-app.use(passport.initialize());
 
 // Serve static assets in production (heroku)
 if (process.env.NODE_ENV === 'production') {
